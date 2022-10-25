@@ -15,7 +15,7 @@ public abstract class GameObject {
 
 	public abstract void update();
 	public abstract void render(Graphics g);
-	public abstract Rectangle getBounds();
+	public abstract Rectangle getBounds(); // Se consigue el rectángulo para las colisiones
 
 	public int getX() {
 		return x;

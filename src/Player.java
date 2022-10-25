@@ -17,6 +17,8 @@ public class Player extends GameObject {
 		x += velX;
 		y += velY;
 		
+		collision();
+		
 		// Movimiento
 		if(handler.isUp()) velY = -5;
 		else if(!handler.isDown()) velY = 0;
@@ -29,6 +31,19 @@ public class Player extends GameObject {
 		
 		if(handler.isLeft()) velX = -5;
 		else if(!handler.isRight()) velX = 0;
+	}
+	
+	private void collision() {
+		for(int i = 0 ; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+			
+			if(tempObject.getId() == ID.Block) { // Verificar si está colisionando con un bloque
+				if(getBounds().intersects(tempObject.getBounds())) { // Si hay colision (interseccion de rectangulos)				
+					x += velX * -1;
+					y += velY * -1;
+				}
+			}
+		}
 	}
 
 	@Override
