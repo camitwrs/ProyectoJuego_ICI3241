@@ -2,10 +2,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+// Bloques del level
 public class Block extends GameObject {
 
-	public Block(int x, int y, ID id) {
-		super(x, y, id);
+	public Block(int x, int y, ID id, GameHandler handler) {
+		super(x, y, id, handler);
 	}
 
 	@Override
@@ -22,6 +23,11 @@ public class Block extends GameObject {
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(x,y,32,32);
+	}
+
+	@Override
+	public void checkCollisions() {
+		
 	}
 
 }

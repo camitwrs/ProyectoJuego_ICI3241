@@ -1,13 +1,13 @@
 import java.awt.Graphics;
-import java.util.LinkedList;
+import java.util.ArrayList;
 /*
  * 	GameHandler "Manejador de objetos":
  *  Maneja todos los objetos del juego a la vez, así no hayestar uno por uno actualizandolos, renderizandolos, etc.
- *  Los objetos se guardan en una lista enlazada.
+ *  Los objetos se guardan en una lista.
  */
 public class GameHandler {
 	
-	LinkedList<GameObject> object = new LinkedList<GameObject>();
+	ArrayList<GameObject> object = new ArrayList<GameObject>();
 	
 	private boolean up = false, down = false, right = false, left = false; // Variables de input teclado
 	

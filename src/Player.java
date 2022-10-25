@@ -5,11 +5,8 @@ import java.awt.Rectangle;
 // GATO
 public class Player extends GameObject {
 	
-	GameHandler handler;
-
 	public Player(int x, int y, ID id, GameHandler handler) {
-		super(x, y, id);
-		this.handler = handler;
+		super(x, y, id, handler);
 	}
 
 	@Override
@@ -17,7 +14,7 @@ public class Player extends GameObject {
 		x += velX;
 		y += velY;
 		
-		collision();
+		checkCollisions();
 		
 		// Movimiento
 		if(handler.isUp()) velY = -5;
@@ -33,18 +30,6 @@ public class Player extends GameObject {
 		else if(!handler.isRight()) velX = 0;
 	}
 	
-	private void collision() {
-		for(int i = 0 ; i < handler.object.size(); i++) {
-			GameObject tempObject = handler.object.get(i);
-			
-			if(tempObject.getId() == ID.Block) { // Verificar si está colisionando con un bloque
-				if(getBounds().intersects(tempObject.getBounds())) { // Si hay colision (interseccion de rectangulos)				
-					x += velX * -1;
-					y += velY * -1;
-				}
-			}
-		}
-	}
 
 	@Override
 	public void render(Graphics g) {
@@ -56,6 +41,21 @@ public class Player extends GameObject {
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(x,y,32,48);
+	}
+
+	@Override
+	public void checkCollisions() {
+		for(int i = 0 ; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+			
+			if(tempObject.getId() == ID.Block) { // Verificar si está colisionando con un bloque
+				if(getBounds().intersects(tempObject.getBounds())) { // Si hay colision (interseccion de rectangulos)				
+					x += velX * -1;
+					y += velY * -1;
+				}
+			}
+		}
+		
 	}
 
 }

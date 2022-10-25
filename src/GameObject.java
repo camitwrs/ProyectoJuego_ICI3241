@@ -6,17 +6,20 @@ public abstract class GameObject {
 	protected float velX = 0;
 	protected float velY = 0;
 	protected ID id;
+	protected GameHandler handler;
 	
-	public GameObject(int x, int y, ID id) {
+	public GameObject(int x, int y, ID id, GameHandler handler) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
+		this.handler = handler;
 	}
 
 	public abstract void update();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds(); // Se consigue el rectángulo para las colisiones
-
+	public abstract void checkCollisions();
+	
 	public int getX() {
 		return x;
 	}
