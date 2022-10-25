@@ -1,6 +1,7 @@
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -15,21 +16,24 @@ public class Game extends Canvas implements Runnable {
 	private boolean isRunning = false;
 	private Thread thread;
 	private GameHandler handler;
-
+	private Camera camera;
+	
 	private BufferedImage level = null;
 	
 	public Game(){
 		new Window(1000,563,"Meowro",this);
-		start();
 		
 		// Solo 1 instancia siempre. No se modifica nunca, se va traspasando entre clases.
 		handler = new GameHandler();
+		camera = new Camera(0, 0);
 		this.addKeyListener(new KeyboardInput(handler));
 		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/meowro_level.png");
 		
 		loadLevel(level);
+		
+		start();
 	}
 	
 	private void start() {
@@ -81,6 +85,15 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public void tick() { // Actualiza
+		// ¿Cual GameObject es nuestro player?
+		// Recorre todos los objetos del juego, buscando cuál es nuestro Player
+		// y lo pone en los parámetros de nuestra cámara que necesitamos usar.
+		for(int i = 0 ; i < handler.object.size() ; i++) {
+			if(handler.object.get(i).getId() == ID.Player) {
+				camera.update(handler.object.get(i));
+			}
+		}
+		
 		handler.update();
 	}
 	
@@ -93,14 +106,20 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		
-		//////////////////////////////////////////////
-		// Todo lo de aquí es dibujado
+		// Convertir a graphics 2d
+		Graphics2D g2d = (Graphics2D) g;
+	
+		///////////////TODO LO DE AQUÍ ES DIBUJADO EN PANTALLA/////////////////
 		
 		g.setColor(Color.red);
 		g.fillRect(0, 0, 1000, 563);
 		
+		// Limites de translate: Permiten que la cámara sea "traducida", movible.
+		g2d.translate(-camera.getX(), -camera.getY());
+	
 		handler.render(g); // Renderiza todos los objetos
+		
+		g2d.translate(camera.getX(), camera.getY());
 		
 		///////////////////////////////////////////////
 		

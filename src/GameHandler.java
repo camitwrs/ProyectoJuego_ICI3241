@@ -1,32 +1,36 @@
 import java.awt.Graphics;
 import java.util.LinkedList;
-
+/*
+ * 	GameHandler "Manejador de objetos":
+ *  Maneja todos los objetos del juego a la vez, así no hayestar uno por uno actualizandolos, renderizandolos, etc.
+ *  Los objetos se guardan en una lista enlazada.
+ */
 public class GameHandler {
 	
-	LinkedList<GameObject> GameObject = new LinkedList<GameObject>();
+	LinkedList<GameObject> object = new LinkedList<GameObject>();
 	
 	private boolean up = false, down = false, right = false, left = false; // Variables de input teclado
 	
 	public void update() {
-		for(int i = 0 ; i < GameObject.size(); i++) {
-			GameObject tempGameObject = GameObject.get(i);
+		for(int i = 0 ; i < object.size(); i++) {
+			GameObject tempGameObject = object.get(i);
 			tempGameObject.update();
 		}
 	}
 	
 	public void render(Graphics g) {
-		for(int i = 0 ; i < GameObject.size(); i++) {
-			GameObject tempGameObject = GameObject.get(i);
+		for(int i = 0 ; i < object.size(); i++) {
+			GameObject tempGameObject = object.get(i);
 			tempGameObject.render(g);
 		}
 	}
 	
 	public void addObject(GameObject tempGameObject) {
-		GameObject.add(tempGameObject);
+		object.add(tempGameObject);
 	}
 	
 	public void removeObject(GameObject tempGameObject) {
-		GameObject.remove(tempGameObject);
+		object.remove(tempGameObject);
 	}
 
 	public boolean isUp() {

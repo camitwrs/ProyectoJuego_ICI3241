@@ -2,7 +2,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-// 
+// Ventana de 1000 x 563
 public class Window {
 
 	public Window(int ancho, int alto, String titulo, Game game) {

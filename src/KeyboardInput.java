@@ -13,8 +13,8 @@ public class KeyboardInput extends KeyAdapter {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		
-		for(int i = 0 ;i < handler.GameObject.size(); i++) {
-			GameObject tempGameObject = handler.GameObject.get(i);
+		for(int i = 0 ;i < handler.object.size(); i++) {
+			GameObject tempGameObject = handler.object.get(i);
 			
 			if(tempGameObject.getId() == ID.Player) {
 				if(key == KeyEvent.VK_W) handler.setUp(true);
@@ -29,8 +29,8 @@ public class KeyboardInput extends KeyAdapter {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		
-		for(int i = 0 ;i < handler.GameObject.size(); i++) {
-			GameObject tempGameObject = handler.GameObject.get(i);
+		for(int i = 0 ;i < handler.object.size(); i++) {
+			GameObject tempGameObject = handler.object.get(i);
 			
 			if(tempGameObject.getId() == ID.Player) {
 				if(key == KeyEvent.VK_W) handler.setUp(false);
