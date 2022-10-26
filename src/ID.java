@@ -6,5 +6,6 @@ public enum ID {
 	//Mouse(),
 	//Boss(),
 	Bullet(),
+	AmmoBox(),
 	Enemy();
 }

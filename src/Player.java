@@ -5,8 +5,11 @@ import java.awt.Rectangle;
 // GATO
 public class Player extends GameObject {
 	
-	public Player(int x, int y, ID id, GameHandler handler) {
+	Game game;
+	
+	public Player(int x, int y, ID id, GameHandler handler, Game game) {
 		super(x, y, id, handler);
+		this.game = game;
 	}
 
 	@Override
@@ -43,15 +46,24 @@ public class Player extends GameObject {
 		return new Rectangle(x,y,32,48);
 	}
 
-	@Override
+	@Override  
 	public void checkCollisions() {
 		for(int i = 0 ; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if(tempObject.getId() == ID.Block) { // Verificar si está colisionando con un bloque
+			// Si colisina con un bloque
+			if(tempObject.getId() == ID.Block) { 
 				if(getBounds().intersects(tempObject.getBounds())) { // Si hay colision (interseccion de rectangulos)				
 					x += velX * -1;
 					y += velY * -1;
+				}
+			}
+			
+			// Si colisiona con un AmmoBox
+			if(tempObject.getId() == ID.AmmoBox) { 
+				if(getBounds().intersects(tempObject.getBounds())) { // Si hay colision (interseccion de rectangulos)				
+					game.ammo += 10; // Gana 10 de municion
+					handler.removeObject(tempObject);
 				}
 			}
 		}

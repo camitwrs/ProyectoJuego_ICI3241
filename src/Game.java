@@ -18,6 +18,8 @@ public class Game extends Canvas implements Runnable {
 	private GameHandler handler;
 	private Camera camera;
 	
+	public int ammo = 100;
+	
 	private BufferedImage level = null;
 	
 	public Game(){
@@ -28,7 +30,7 @@ public class Game extends Canvas implements Runnable {
 		camera = new Camera(0, 0);
 		
 		this.addKeyListener(new KeyboardInput(handler));
-		this.addMouseListener(new MouseInput(handler, camera));
+		this.addMouseListener(new MouseInput(handler, camera, this));
 		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/meowro_level.png");
@@ -142,13 +144,14 @@ public class Game extends Canvas implements Runnable {
 				int blue = (pixel) & 0xff;
 				
 				// Creación y detección de los tipos de objetos según el color en el mapa
-				if(red == 255)
+				if(red == 255 && green == 0 & blue == 0)
 					handler.addObject(new Block(xx*32, yy*32, ID.Block, handler));
-				if(blue == 255)
-					handler.addObject(new Player(xx*32, yy*32, ID.Player, handler));
-				if(green == 255)
+				if(blue == 255 && green == 0 && red == 0)
+					handler.addObject(new Player(xx*32, yy*32, ID.Player, handler, this));
+				if(green == 255 && red == 0 && blue == 0)
 					handler.addObject(new Enemy(xx*32, yy*32, ID.Enemy, handler));
-					
+				if(green == 255 && blue == 255 && red == 0)
+					handler.addObject(new AmmoBox(xx*32, yy*32, ID.AmmoBox, handler));
 			}
 		}
 	}
