@@ -141,10 +141,14 @@ public class Game extends Canvas implements Runnable {
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
 				
+				// Creación y detección de los tipos de objetos según el color en el mapa
 				if(red == 255)
 					handler.addObject(new Block(xx*32, yy*32, ID.Block, handler));
 				if(blue == 255)
 					handler.addObject(new Player(xx*32, yy*32, ID.Player, handler));
+				if(green == 255)
+					handler.addObject(new Enemy(xx*32, yy*32, ID.Enemy, handler));
+					
 			}
 		}
 	}
