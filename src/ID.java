@@ -3,9 +3,8 @@ public enum ID {
 	Player(),
 	Block(),
 	//Dog(),
-	//Mouse(),
+	Mouse(),
 	//Boss(),
 	Bullet(),
-	AmmoBox(),
-	Enemy();
+	AmmoBox();
 }

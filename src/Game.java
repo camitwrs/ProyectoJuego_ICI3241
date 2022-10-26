@@ -1,5 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -9,6 +10,7 @@ import java.awt.image.BufferedImage;
  * Clase Principal.
  * Áquí esta el GameLoop, Updating, Rendering, etc.
  */
+
 public class Game extends Canvas implements Runnable {
 	
 	private static final long serialVersionUID = 1L;
@@ -17,10 +19,14 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private GameHandler handler;
 	private Camera camera;
+	private SpriteSheet ss;
 	
 	public int ammo = 100;
+	public int hp = 100;
 	
+	private BufferedImage sprite_sheet = null;
 	private BufferedImage level = null;
+	private BufferedImage floor = null;
 	
 	public Game(){
 		new Window(1000,563,"Meowro",this);
@@ -30,10 +36,16 @@ public class Game extends Canvas implements Runnable {
 		camera = new Camera(0, 0);
 		
 		this.addKeyListener(new KeyboardInput(handler));
-		this.addMouseListener(new MouseInput(handler, camera, this));
 		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/meowro_level.png");
+		
+		sprite_sheet = loader.loadImage("/meowro_spriteSheet.png");
+		ss = new SpriteSheet(sprite_sheet);
+		
+		floor = ss.cropImage(4, 2, 32, 32);
+		
+		this.addMouseListener(new MouseInput(handler, camera, this));
 		
 		loadLevel(level);
 		
@@ -57,7 +69,7 @@ public class Game extends Canvas implements Runnable {
 	
 	@Override
 	public void run() {
-		// Game Loop de @ Notch Minecraft Developer 
+		// Game Loop de autor @ Notch, Minecraft Developer 
 		
 		this.requestFocus();
 		long lastTime = System.nanoTime();
@@ -115,17 +127,34 @@ public class Game extends Canvas implements Runnable {
 	
 		///////////////TODO LO DE AQUÍ ES DIBUJADO EN PANTALLA/////////////////
 		
-		g.setColor(Color.red);
-		g.fillRect(0, 0, 1000, 563);
-		
 		// Limites de translate: Permiten que la cámara sea "traducida", movible.
 		g2d.translate(-camera.getX(), -camera.getY());
 	
+		// Dibuja todos los tiles del piso
+		for(int xx = 0 ; xx < 30*72 ; xx+=32) {
+			for(int yy = 0 ; yy < 30*72 ; yy+=32) {
+				g.drawImage(floor, xx, yy, null);
+			}
+		}
+		
 		handler.render(g); // Renderiza todos los objetos
 		
 		g2d.translate(camera.getX(), camera.getY());
 		
-		///////////////////////////////////////////////
+		// Dibujar barra de vida en pantallaS
+		g.setColor(Color.gray);
+		g.fillRect(5, 5, 200, 10);
+		g.setColor(Color.green);
+		g.fillRect(5, 5, hp*2, 10);
+		g.setColor(Color.green);
+		g.drawRect(5, 5, 200, 10);
+		
+		// Dibuja el texto en pantalla
+		g.setColor(Color.white);
+		g.setFont(new Font("Joystix Monospace", Font.PLAIN, 15));
+		g.drawString("Municion: " + ammo, 5, 32);
+		
+		///////////////////////////////////////////////////////////////////////////////
 		
 		g.dispose();
 		bs.show();
@@ -145,13 +174,13 @@ public class Game extends Canvas implements Runnable {
 				
 				// Creación y detección de los tipos de objetos según el color en el mapa
 				if(red == 255 && green == 0 & blue == 0)
-					handler.addObject(new Block(xx*32, yy*32, ID.Block, handler));
+					handler.addObject(new Block(xx*32, yy*32, ID.Block, handler, ss));
 				if(blue == 255 && green == 0 && red == 0)
-					handler.addObject(new Player(xx*32, yy*32, ID.Player, handler, this));
+					handler.addObject(new Player(xx*32, yy*32, ID.Player, handler, this, ss));
 				if(green == 255 && red == 0 && blue == 0)
-					handler.addObject(new Enemy(xx*32, yy*32, ID.Enemy, handler));
+					handler.addObject(new Mouse(xx*32, yy*32, ID.Mouse, handler, ss));
 				if(green == 255 && blue == 255 && red == 0)
-					handler.addObject(new AmmoBox(xx*32, yy*32, ID.AmmoBox, handler));
+					handler.addObject(new AmmoBox(xx*32, yy*32, ID.AmmoBox, handler, ss));
 			}
 		}
 	}

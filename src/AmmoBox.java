@@ -1,22 +1,20 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class AmmoBox extends GameObject {
+	
+	private BufferedImage tex;
 
-	public AmmoBox(int x, int y, ID id, GameHandler handler) {
-		super(x, y, id, handler);
-	}
-
-	@Override
-	public void update() {
+	public AmmoBox(int x, int y, ID id, GameHandler handler, SpriteSheet ss) {
+		super(x, y, id, handler, ss);
 		
+		tex = ss.cropImage(4, 3, 32, 32);
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.cyan);
-		g.fillRect(x, y, 32, 32);
+		g.drawImage(tex, x, y, null);
 	}
 
 	@Override
@@ -25,8 +23,7 @@ public class AmmoBox extends GameObject {
 	}
 
 	@Override
-	public void checkCollisions() {
-
+	public void update() {
 		
 	}
 

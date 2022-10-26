@@ -1,6 +1,7 @@
-/GameHandler.class
-/Collidable.class
-/Bullet.class
-/MouseInput.class
 /Enemy.class
-/AmmoBox.class
+/Dog.class
+/Boss.class
+/Character.class
+/input/
+/KeyboardInput.class
+/MouseInput.class

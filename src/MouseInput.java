@@ -6,11 +6,13 @@ public class MouseInput extends MouseAdapter {
 	private GameHandler handler;
 	private Camera camera;
 	private Game game;
+	private SpriteSheet ss;
 	
 	public MouseInput(GameHandler handler, Camera camera, Game game) {
 		this.handler = handler;
 		this.camera = camera;
 		this.game = game;
+		this.ss = ss; // Para cambiar la tex de la bala más adelante
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -25,7 +27,7 @@ public class MouseInput extends MouseAdapter {
 			
 			if(tempObject.getId() == ID.Player && game.ammo >= 1) {
 				// Se agrega 16 y 24 porque o sino la bala se crearía en el centro del Player 
-				handler.addObject(new Bullet(tempObject.getX()+16, tempObject.getY()+24, ID.Bullet, handler, mx, my));
+				handler.addObject(new Bullet(tempObject.getX()+16, tempObject.getY()+24, ID.Bullet, handler, mx, my, ss));
 				game.ammo--;
 			}
 		}

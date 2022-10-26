@@ -1,23 +1,21 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 // Bloques del level
 public class Block extends GameObject {
 
-	public Block(int x, int y, ID id, GameHandler handler) {
-		super(x, y, id, handler);
-	}
-
-	@Override
-	public void update() {
+	private BufferedImage tex;
+	
+	public Block(int x, int y, ID id, GameHandler handler, SpriteSheet ss) {
+		super(x, y, id, handler, ss);
 		
+		tex = ss.cropImage(4, 1, 32, 32);
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(x, y, 32, 32);
+		g.drawImage(tex, x, y, null);
 	}
 
 	@Override
@@ -26,8 +24,6 @@ public class Block extends GameObject {
 	}
 
 	@Override
-	public void checkCollisions() {
-		
+	public void update() {
 	}
-
 }

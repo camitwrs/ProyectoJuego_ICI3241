@@ -3,22 +3,22 @@ import java.awt.Rectangle;
 
 public abstract class GameObject {
 	protected int x, y;
-	protected float velX = 0;
-	protected float velY = 0;
+	protected int velX, velY;
 	protected ID id;
+	protected SpriteSheet ss;
 	protected GameHandler handler;
 	
-	public GameObject(int x, int y, ID id, GameHandler handler) {
+	public GameObject(int x, int y, ID id, GameHandler handler, SpriteSheet ss) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
 		this.handler = handler;
+		this.ss = ss;
 	}
 
-	public abstract void update();
 	public abstract void render(Graphics g);
+	public abstract void update();
 	public abstract Rectangle getBounds(); // Se consigue el rectángulo para las colisiones
-	public abstract void checkCollisions();
 	
 	public int getX() {
 		return x;
@@ -36,22 +36,6 @@ public abstract class GameObject {
 		this.y = y;
 	}
 
-	public float getVelX() {
-		return velX;
-	}
-
-	public void setVelX(float velX) {
-		this.velX = velX;
-	}
-
-	public float getVelY() {
-		return velY;
-	}
-
-	public void setVelY(float velY) {
-		this.velY = velY;
-	}
-	
 	public ID getId() {
 		return id;
 	}
