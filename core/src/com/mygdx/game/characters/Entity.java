@@ -4,8 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
-public abstract class Entity { // Clase superpadre
+import com.mygdx.game.util.ID;
+/*
+ * Clase suprema. 1er nivel. Engloba todo.
+ */
+public abstract class Entity { 
 	private Vector2 position;
 	private TextureRegion texture;
 	private Rectangle rect;
@@ -29,6 +32,19 @@ public abstract class Entity { // Clase superpadre
 		return position;
 	}
 	
+	public void setPositionX(int x) {
+		this.position.x = x;
+	}
+	
+	public void setPositionY(int y) {
+		this.position.y = y;
+	}
+	
+	public void setPosition(Vector2 v) {
+		this.position = v;
+	}
+	
+
 	public Rectangle getRect() {
 		return rect;
 	}

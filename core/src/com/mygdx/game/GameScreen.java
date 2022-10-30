@@ -30,10 +30,13 @@ public class GameScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		// Limpia y pinta rojo oscuro.
-		ScreenUtils.clear(0.2f, 0, 0, 1);
+		ScreenUtils.clear(0, 0, 0, 1);
 		//Meowro.getInstance().getCamera().update();
 		//Meowro.getInstance().getBatch().setProjectionMatrix(Meowro.getInstance().getCamera().combined); // Representa la vista combinada y la matriz de proyeccion.
-		obManager.render(delta);
+		// Actualiza
+		obManager.update(delta);
+		// Dibuja
+		obManager.render();
 		
 	}
 
@@ -63,7 +66,7 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		obManager.dispose();
 		
 	}
 

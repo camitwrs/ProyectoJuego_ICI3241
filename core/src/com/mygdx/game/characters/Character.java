@@ -1,11 +1,12 @@
 package com.mygdx.game.characters;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-
-public abstract class Character extends Entity { // Clase hija de los 
+/*
+ * Subclase. 2do nivel. Se refiere a los personajes.
+ * Podría a llegar a constituir: Jugadores, enemigos, personajes narrativos, etc.
+ */
+public abstract class Character extends Entity { //
 	
 	private float speed;	
 	private int hp;
@@ -16,29 +17,22 @@ public abstract class Character extends Entity { // Clase hija de los
 		this.hp = hp;
 	}
 
-
-	public void move(Vector2 direction, float delta) {
+	public void move(Vector2 movement) {
 		
-		if(direction.x < 0)
-			getPosition().x -= speed * delta;
-		if(direction.x > 0)
-			getPosition().x += speed * delta;
-		if(direction.y < 0)
-			getPosition().y -= speed * delta;
-		if(direction.y > 0)
-			getPosition().y += speed * delta;
-		
+		movement.scl(speed);
+		getPosition().add(movement);
 		updateRect();
-		//System.out.println(getPosition());
 	}
-
-
 	
 	public void takeDamage(int damage) {
 		hp -= damage;
-		System.out.println(hp);
 	}
 
+	public int getHp() {
+		return hp;
+	}
+	
+	
 
 	
 	

@@ -3,7 +3,10 @@ package com.mygdx.game.characters;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.managers.InputManager;
+import com.mygdx.game.util.Collidable;
 import com.mygdx.game.util.Constants;
+import com.mygdx.game.util.ID;
+import com.mygdx.game.util.Interactable;
 
 public class Player extends Character implements Collidable{
 
@@ -23,7 +26,15 @@ public class Player extends Character implements Collidable{
 		if ((getPosition().y + getTexture().getRegionWidth() >= Constants.SCREEN_WIDTH))
 			getPosition().y = Constants.SCREEN_HEIGHT - getTexture().getRegionHeight();
 		
-		move(InputManager.getInstance().getInputMove(), dt);
+		if(InputManager.getInstance().isGoingLeft())
+			this.move(new Vector2(-1 * dt , 0));
+		if(InputManager.getInstance().isGoingRight())
+			this.move(new Vector2(1 * dt , 0));
+		if(InputManager.getInstance().isGoingDown())
+			this.move(new Vector2(0 , -1 * dt));
+		if(InputManager.getInstance().isGoingUp())
+			this.move(new Vector2(0 , 1 * dt));
+		
 	}
 
 	@Override

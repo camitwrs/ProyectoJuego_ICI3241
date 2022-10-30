@@ -1,41 +1,31 @@
 package com.mygdx.game;
+
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.managers.InputManager;
-import com.mygdx.game.util.Constants;
 
-public class MainMenuScreen implements Screen {
+public class GameOverScreen implements Screen{
 
-	@Override
-	public void render(float delta) {
-		// Limpia la pantalla
-		ScreenUtils.clear(0, 0, 0, 1);
-		// Dibuja el menu
-		Meowro.getInstance().getBatch().begin();
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Bienvenido a MEOWRO", 340, 350);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Pulsa 'ENTER' para empezar", 330, 310);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Pulsa 'ESCAPE' para SALIR", 330, 290);
-		Meowro.getInstance().getBatch().end();
-		
-		// Chequeo de input
-		// ESCAPE
-		if (InputManager.getInstance().getInputMainMenu() == 1) {
-			dispose();
-			System.exit(0);
-		}
-		// ENTER
-		if (InputManager.getInstance().getInputMainMenu() == 3) {
-			Meowro.getInstance().setScreen(new GameScreen());
-			dispose();
-		}
-	}
-	
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	@Override
+	public void render(float delta) {
+		ScreenUtils.clear(0, 0, 0, 1);
+		Meowro.getInstance().getBatch().begin();
+		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Fin del juego :(", 100, 150);
+		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Máxima puntuación: "+ Meowro.getInstance().getScore(), 100, 130);
+		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Pulsa 'ESCAPE' para SALIR", 100, 110);
+		Meowro.getInstance().getBatch().end();
+		
+		if (InputManager.getInstance().getInputMainMenu() == 1) {
+			dispose();
+			System.exit(0);
+		}
+	}
 
 	@Override
 	public void resize(int width, int height) {
@@ -63,9 +53,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		Meowro.getInstance().dispose();
 	}
-	
-	
+
 }

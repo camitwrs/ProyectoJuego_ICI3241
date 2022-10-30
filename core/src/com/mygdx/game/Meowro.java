@@ -9,7 +9,8 @@ public class Meowro extends Game {
 	private SpriteBatch batch; // Area sobre la cual se colocan los "dibujos/sprites". Lienzo.
 	private BitmapFont font; // Texto.
 	private OrthographicCamera camera; //misma camara siempre
-	
+	private int score;
+
 	private static Meowro instance = null;
 	
 	@Override
@@ -19,8 +20,6 @@ public class Meowro extends Game {
 		font = new BitmapFont();
 		setScreen(new MainMenuScreen());
 	}
-
-
 
 	@Override
 	public void render () { // Va actualizando el "dibujo". 60 FPS.
@@ -53,4 +52,11 @@ public class Meowro extends Game {
 		return camera;
 	}
 
+	public int getScore() {
+		return score;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
 }

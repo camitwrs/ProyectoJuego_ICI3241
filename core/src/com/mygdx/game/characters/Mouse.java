@@ -2,6 +2,8 @@ package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.util.Constants;
+import com.mygdx.game.util.ID;
 
 public class Mouse extends Enemy {
 
@@ -11,7 +13,7 @@ public class Mouse extends Enemy {
 
 	@Override
 	public void update(float dt) {
-		
+
 		
 	}
 

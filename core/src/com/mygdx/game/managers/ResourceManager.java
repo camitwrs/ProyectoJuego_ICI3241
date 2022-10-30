@@ -1,13 +1,8 @@
 package com.mygdx.game.managers;
 
-import java.util.HashMap;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.Map;
 
 public class ResourceManager {
 
@@ -15,16 +10,10 @@ public class ResourceManager {
     private TextureAtlas atlas;
     Texture player;
 
-    // Recursos de sonido y música
-    private HashMap<String, Sound> sounds;
-    private HashMap<String, Music> musics;
-
     /**
      * Carga en memoria todos los recursos (gráficos, sonidos y música)
      */
     public void loadAllResources() {
-    	
-    	
         
     	atlas = new TextureAtlas(Gdx.files.internal("Meowro.txt"));
 
@@ -38,36 +27,14 @@ public class ResourceManager {
     	
     }
 
-    /**
-     * Obtiene el atlas de texturas del game
-     * @return
-     */
     public TextureAtlas getAtlas() {
         return atlas;
     }
 
-    /**
-     * Obtiene un recurso de sonido determinado
-     * @param nombre
-     * @return
-     */
-    public Sound getSound(String nombre) {
-        return sounds.get(nombre);
-    }
 
-    /**
-     * Obtiene un recurso de música determinado
-     * @param nombre
-     * @return
-     */
-    public Music getMusic(String nombre) {
-        return musics.get(nombre);
-    }
 
     public void dispose() {
 
         atlas.dispose();
-        sounds.clear();
-        musics.clear();
     }
 }
