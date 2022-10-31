@@ -24,6 +24,7 @@ public abstract class Enemy extends Character implements Interactable {
 		if(e.getId() == ID.Player) { // Si es un jugador
 			Player p = (Player) e;
 			p.takeDamage(damage);
+			
 		}
 	}
 	public int outBounds() {

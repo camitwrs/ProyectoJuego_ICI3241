@@ -1,7 +1,9 @@
 package com.mygdx.game;
-
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.managers.ObjectManager;
 import com.mygdx.game.managers.ResourceManager;
@@ -10,7 +12,6 @@ public class GameScreen implements Screen{
 
 	ResourceManager resManager;
 	ObjectManager obManager;
-	
 	public GameScreen() {
 
 
@@ -37,6 +38,7 @@ public class GameScreen implements Screen{
 		obManager.update(delta);
 		// Dibuja
 		obManager.render();
+
 		
 	}
 

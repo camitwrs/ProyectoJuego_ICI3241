@@ -1,7 +1,10 @@
 package com.mygdx.game.characters;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.util.ID;
@@ -12,6 +15,7 @@ public abstract class Entity {
 	private Vector2 position;
 	private TextureRegion texture;
 	private Rectangle rect;
+
 	
 	public Entity(Vector2 position, TextureRegion texture) {
 		this.position = position;
@@ -26,6 +30,7 @@ public abstract class Entity {
 	// Dibuja la entidad en pantalla.
 	public void render(SpriteBatch batch) {
 		batch.draw(getTexture(), getPosition().x, getPosition().y);
+       
 	}
 	
 	public Vector2 getPosition() {

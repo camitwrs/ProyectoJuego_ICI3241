@@ -1,5 +1,8 @@
 package com.mygdx.game.managers;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -14,9 +17,11 @@ import com.mygdx.game.util.Constants;
 
 public class ObjectManager {
 	private ResourceManager resManager;
+	ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private Player player;
     private Array<Enemy> enemies;
+    private boolean debug = true;
     
     // Controla a que ritmo van apareciendo las distintas entidades
     private long lastItem; // Para cuando spawneemos objetos.
@@ -58,11 +63,16 @@ public class ObjectManager {
     }
     public void generateMouses(){
     	if(enemies.size < 20) {
+    		Vector2 pos = new Vector2(getRandomX(), getRandomY());
     		int x= random();
     		int y = random();
     		if(x==0 && y==0)
     			y=1;
-        	Enemy enemy = new Mouse(new Vector2(getRandomX(), getRandomY()),  resManager.getAtlas().findRegion("jiniretFront"),200f,100,x,y);
+    		if (Math.abs(pos.x - player.getPosition().x) >= Constants.PLAYER_WIDTH/2 &&
+    				Math.abs(pos.y - player.getPosition().y) >= Constants.PLAYER_WIDTH/2) {
+    			pos = new Vector2(pos.x-10,pos.y-10);
+    		}
+        	Enemy enemy = new Mouse(pos,  resManager.getAtlas().findRegion("jiniretFront"),200f,100,x,y);
             enemies.add(enemy);
             lastEnemy = TimeUtils.nanoTime();
     	}
@@ -70,18 +80,34 @@ public class ObjectManager {
     
     public void render() {
     	Meowro.getInstance().getBatch().begin();
+    	if (debug) {
+    		shapeRenderer.begin(ShapeType.Line);
+    		shapeRenderer.setColor(Color.RED);
+    		shapeRenderer.rect(player.getRect().x, player.getRect().y, player.getRect().height, player.getRect().width);
+    	
+    	}
+    	
     	///////////////////////////////////////////////
 
     	player.render(Meowro.getInstance().getBatch());
     	
     	for(Enemy en : enemies) {
-    		en.render(Meowro.getInstance().getBatch());
+    		en.render(Meowro.getInstance().getBatch());		
+    		if (debug) {
+    			shapeRenderer.setColor(Color.BLUE);
+    			shapeRenderer.rect(en.getRect().x, en.getRect().y, en.getRect().height, en.getRect().width);
+    		}
     	}
     	
     	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Puntos: " + Meowro.getInstance().getScore(), 10, 490);
     	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Salud: " + player.getHp(), 10, 470);
     	///////////////////////////////////////////////
     	Meowro.getInstance().getBatch().end();
+		
+        
+        
+        
+        shapeRenderer.end();
     	//generateEnemies();
     }
     

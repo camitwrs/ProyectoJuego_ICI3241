@@ -1,7 +1,9 @@
 package com.mygdx.game.characters;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.managers.InputManager;
 import com.mygdx.game.util.Collidable;
 import com.mygdx.game.util.Constants;
@@ -10,8 +12,12 @@ import com.mygdx.game.util.Interactable;
 
 public class Player extends Character implements Collidable{
 
+	private boolean hurted;
+	private long timeHurt;
+	
 	public Player(Vector2 position, TextureRegion texture, float speed, int hp) {
 		super(position, texture, speed, hp);
+		
 	}
 
 	@Override
@@ -25,7 +31,12 @@ public class Player extends Character implements Collidable{
 			getPosition().x = Constants.SCREEN_WIDTH - getTexture().getRegionWidth();
 		if ((getPosition().y + getTexture().getRegionWidth() >= Constants.SCREEN_HEIGHT))
 			getPosition().y = Constants.SCREEN_HEIGHT - getTexture().getRegionHeight();
-		
+		if (hurted && TimeUtils.nanoTime() - timeHurt < Constants.SECOND/4)
+			return;
+		else {
+			hurted = false;
+			timeHurt = TimeUtils.nanoTime();
+		}
 		if(InputManager.getInstance().isGoingLeft())
 			this.move(new Vector2(-1 * dt , 0));
 		if(InputManager.getInstance().isGoingRight())
@@ -39,8 +50,9 @@ public class Player extends Character implements Collidable{
 
 	@Override
 	public void checkCollision(Interactable i) {
-		if (this.getRect().overlaps(i.getRect()))
+		if (this.getRect().overlaps(i.getRect())) {
 			i.interaction(this);
+		}
 	}
 
 	@Override
@@ -48,4 +60,7 @@ public class Player extends Character implements Collidable{
 		return ID.Player;
 	}
 
+	public void stop() {
+		hurted = true;
+	}
 }
