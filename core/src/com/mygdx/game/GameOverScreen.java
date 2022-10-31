@@ -18,7 +18,7 @@ public class GameOverScreen implements Screen{
 		Meowro.getInstance().getBatch().begin();
 		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Fin del juego :(", 100, 150);
 		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Máxima puntuación: "+ Meowro.getInstance().getScore(), 100, 130);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Si quieres jugar otra partida pulsa la tecla 'N'", 100, 110);
+		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Si quieres jugar otra partida pulsa la tecla 'espacio'", 100, 110);
 		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Pulsa 'ESCAPE' para SALIR", 100, 90);
 		Meowro.getInstance().getBatch().end();
 		

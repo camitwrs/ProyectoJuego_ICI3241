@@ -1,13 +1,14 @@
 package com.mygdx.game.managers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.GameOverScreen;
 import com.mygdx.game.characters.Enemy;
@@ -18,15 +19,16 @@ import com.mygdx.game.util.Constants;
 public class ObjectManager {
 	private ResourceManager resManager;
 	ShapeRenderer shapeRenderer = new ShapeRenderer();
-
+	
+	
     private Player player;
     private Array<Enemy> enemies;
-    private boolean debug = false;
+    private boolean debug =true;
     
     // Controla a que ritmo van apareciendo las distintas entidades
-    private long lastItem; // Para cuando spawneemos objetos.
+    //private long lastItem; // Para cuando spawneemos objetos.
     private long lastEnemy;
-    private float gameTime; // Por si más adelante le ponemos límite de tiempo.
+    //private float gameTime; // Por si más adelante le ponemos límite de tiempo.
     
     public ObjectManager(ResourceManager res) {
     	resManager = res;
@@ -44,7 +46,8 @@ public class ObjectManager {
     }
     
     public void generatePlayer() {
-    	player = new Player(new Vector2(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2),  resManager.getAtlas().findRegion("wolfFront"),200f,1000);
+    	player = new Player(new Vector2(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2),
+    			resManager.getAtlas().findRegion("wolfFront"),200f,1000);
     }
     
     private int getRandomX() {
@@ -79,39 +82,50 @@ public class ObjectManager {
     }
     
     public void render() {
-    	Meowro.getInstance().getBatch().begin();
+    	
+    	//para revisar el manejo de colisiones en rectangulos
     	if (debug) {
     		shapeRenderer.begin(ShapeType.Line);
     		shapeRenderer.setColor(Color.RED);
     		shapeRenderer.rect(player.getRect().x, player.getRect().y, player.getRect().height, player.getRect().width);
     	
+    	
+	    	for(Enemy en : enemies) {	
+	    		shapeRenderer.setColor(Color.BLUE);
+				shapeRenderer.rect(en.getRect().x, en.getRect().y,
+						en.getRect().height, en.getRect().width);
+	    	}
+	    	shapeRenderer.end();
     	}
     	
-    	///////////////////////////////////////////////
-
+    	//Dibujo de Entidades
     	player.render(Meowro.getInstance().getBatch());
-    	
     	for(Enemy en : enemies) {
-    		en.render(Meowro.getInstance().getBatch());		
-    		if (debug) {
-    			shapeRenderer.setColor(Color.BLUE);
-    			shapeRenderer.rect(en.getRect().x, en.getRect().y, en.getRect().height, en.getRect().width);
-    		}
+    		en.render(Meowro.getInstance().getBatch());	
     	}
+    	renderHud();
     	
-    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Puntos: " + Meowro.getInstance().getScore(), 10, 490);
-    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Salud: " + player.getHp(), 10, 470);
-    	///////////////////////////////////////////////
-    	Meowro.getInstance().getBatch().end();
-		
-        
-        
-        
-        shapeRenderer.end();
-    	//generateEnemies();
     }
     
-    public void update(float dt) {
+    private void renderHud() {
+    	Meowro.getInstance().getBatch().begin();
+    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Puntos: " + Meowro.getInstance().getScore(), 10, 490);
+    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Salud: " + player.getHp(), 10, 470);
+    	Meowro.getInstance().getBatch().end();
+    	//Barra Vida Transparencia
+        Gdx.gl.glEnable(GL30.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(128, 128, 128, 0.5f);
+        shapeRenderer.rect(15,15,200,32);  
+        shapeRenderer.setColor(0, 0, 255, 0.5f);
+        shapeRenderer.rect(15,15,(200*player.getHp()*0.001f),32);
+        shapeRenderer.end();
+        Gdx.gl.glDisable(GL30.GL_BLEND);
+        
+	}
+
+	public void update(float dt) {
 		
     	Meowro.getInstance().setScore(Meowro.getInstance().getScore() + 1); // Para que el puntaje vaya aumentando.
     	

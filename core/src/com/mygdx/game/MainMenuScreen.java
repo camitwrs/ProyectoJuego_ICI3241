@@ -2,7 +2,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.managers.InputManager;
-import com.mygdx.game.util.Constants;
 
 public class MainMenuScreen implements Screen {
 

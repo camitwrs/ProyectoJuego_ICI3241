@@ -2,7 +2,6 @@ package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Meowro;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.ID;
 import com.mygdx.game.util.Interactable;
@@ -14,9 +13,10 @@ public abstract class Enemy extends Character implements Interactable {
 
 	private int damage;
 	
-	public Enemy(Vector2 position, TextureRegion texture, float speed, int hp, int damage) {
-		super(position, texture, speed, hp);
+	public Enemy(Vector2 position, TextureRegion texture, float speed, int hp, int damage, ID id) {
+		super(position, texture, speed, hp, id);
 		this.damage = damage;
+		
 	}
 	
 	@Override
@@ -28,13 +28,13 @@ public abstract class Enemy extends Character implements Interactable {
 		}
 	}
 	public int outBounds() {
-		if (getPosition().x <= 0)
+		if (getRect().x <= 0)
 			return 1;
-		if(getPosition().y < 0)
+		if(getRect().y < 0)
 			return 2;
-		if ((getPosition().x + getTexture().getRegionWidth() >= Constants.SCREEN_WIDTH))
+		if ((getRect().x + getRect().width >= Constants.SCREEN_WIDTH))
 			return 1;
-		if ((getPosition().y + getTexture().getRegionWidth() >= Constants.SCREEN_HEIGHT))
+		if ((getRect().y + getRect().height >= Constants.SCREEN_HEIGHT))
 			return 2;
 		return 0;
 		

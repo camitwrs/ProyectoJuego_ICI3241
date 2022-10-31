@@ -3,8 +3,6 @@ package com.mygdx.game.managers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Meowro;
 
 public class InputManager {
 	
@@ -69,7 +67,7 @@ public class InputManager {
 		// CASO 3: Si la tecla "enter" es apretada.
 		if(Gdx.input.isKeyPressed(Keys.ENTER))
 			return 3;
-		if(Gdx.input.isKeyPressed(Keys.N))
+		if(Gdx.input.isKeyPressed(Keys.SPACE))
 			return 4;
 		// CASO 0 - Default: Si no apreta ni clickea nada.
 		return 0;

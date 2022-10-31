@@ -1,22 +1,30 @@
 package com.mygdx.game.managers;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 
 public class ResourceManager {
 
     // TextureAtlas con los sprites del game
     private TextureAtlas atlas;
-    Texture player;
-
+   /* Texture player;
+    TextureRegion tRPlayer;
+    Sprite sPlayer;
+    TextureRegionDrawable tRDPlayer;
+    */
     /**
      * Carga en memoria todos los recursos (gráficos, sonidos y música)
      */
     public void loadAllResources() {
         
-    	atlas = new TextureAtlas(Gdx.files.internal("Meowro.txt"));
-
+    	atlas = new TextureAtlas(Gdx.files.internal("Meowro.txt")); 
+    	 /*final TextureRegionDrawable a = new TextureRegionDrawable();
+    	 
+    	 tRPlayer = atlas.findRegion("wolfFront");
+    	 player = tRPlayer.getTexture();
+    	 tRDPlayer.draw(player);
+    	 */
         /*sounds = new HashMap<>();
         sounds.put("waterdrop", Gdx.audio.newSound(Gdx.files.internal("sounds/waterdrop.wav")));
         sounds.put("rock", Gdx.audio.newSound(Gdx.files.internal("sounds/rock.mp3")));

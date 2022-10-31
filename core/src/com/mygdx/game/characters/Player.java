@@ -1,6 +1,6 @@
 package com.mygdx.game.characters;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -16,7 +16,7 @@ public class Player extends Character implements Collidable{
 	private long timeHurt;
 	
 	public Player(Vector2 position, TextureRegion texture, float speed, int hp) {
-		super(position, texture, speed, hp);
+		super(position, texture, speed, hp, ID.Player);
 		
 	}
 
@@ -50,14 +50,10 @@ public class Player extends Character implements Collidable{
 
 	@Override
 	public void checkCollision(Interactable i) {
-		if (this.getRect().overlaps(i.getRect())) {
+		if (getRect().overlaps(i.getRect())) {
+			
 			i.interaction(this);
 		}
-	}
-
-	@Override
-	public ID getId() {
-		return ID.Player;
 	}
 
 	public void stop() {
