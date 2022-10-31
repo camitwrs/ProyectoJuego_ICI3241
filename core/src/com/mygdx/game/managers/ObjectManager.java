@@ -21,7 +21,7 @@ public class ObjectManager {
 
     private Player player;
     private Array<Enemy> enemies;
-    private boolean debug = true;
+    private boolean debug = false;
     
     // Controla a que ritmo van apareciendo las distintas entidades
     private long lastItem; // Para cuando spawneemos objetos.
