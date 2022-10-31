@@ -69,7 +69,8 @@ public class InputManager {
 		// CASO 3: Si la tecla "enter" es apretada.
 		if(Gdx.input.isKeyPressed(Keys.ENTER))
 			return 3;
-		
+		if(Gdx.input.isKeyPressed(Keys.N))
+			return 4;
 		// CASO 0 - Default: Si no apreta ni clickea nada.
 		return 0;
 	}

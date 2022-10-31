@@ -7,13 +7,25 @@ import com.mygdx.game.util.ID;
 
 public class Mouse extends Enemy {
 
-	public Mouse(Vector2 position, TextureRegion texture, float speed, int hp) {
+	private int randomX;
+	private int randomY;
+	
+	public Mouse(Vector2 position, TextureRegion texture, float speed, int hp, int randomX, int randomY) {
 		super(position, texture, speed, hp, 25);
+		this.randomX = randomX;
+		this.randomY = randomY;
 	}
 
 	@Override
 	public void update(float dt) {
-
+		if (outBounds() == 1) {
+			randomX*=-1;
+		}else if(outBounds() == 2) {
+			randomY*=-1;
+		}
+			
+		move(new Vector2(randomX*dt, randomY*dt));
+		
 		
 	}
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.GameOverScreen;
 import com.mygdx.game.characters.Enemy;
@@ -12,7 +13,7 @@ import com.mygdx.game.characters.Player;
 import com.mygdx.game.util.Constants;
 
 public class ObjectManager {
-	private ResourceManager resManager;	
+	private ResourceManager resManager;
 
     private Player player;
     private Array<Enemy> enemies;
@@ -48,10 +49,20 @@ public class ObjectManager {
     private int getRandomY() {
     	return MathUtils.random(0, Constants.SCREEN_HEIGHT - Constants.PLAYER_WIDTH);
     }
-    
+    private int random() {
+    	if (MathUtils.random(1,10)>7)
+    		return 1;
+    	else if(MathUtils.random(1,10)>4)
+    		return -1;
+    	return 0;
+    }
     public void generateMouses(){
     	if(enemies.size < 20) {
-        	Enemy enemy = new Mouse(new Vector2(getRandomX(), getRandomY()),  resManager.getAtlas().findRegion("jiniretFront"),200f,100);
+    		int x= random();
+    		int y = random();
+    		if(x==0 && y==0)
+    			y=1;
+        	Enemy enemy = new Mouse(new Vector2(getRandomX(), getRandomY()),  resManager.getAtlas().findRegion("jiniretFront"),200f,100,x,y);
             enemies.add(enemy);
             lastEnemy = TimeUtils.nanoTime();
     	}
@@ -75,20 +86,20 @@ public class ObjectManager {
     }
     
     public void update(float dt) {
+		
     	Meowro.getInstance().setScore(Meowro.getInstance().getScore() + 1); // Para que el puntaje vaya aumentando.
     	
     	player.update(dt);
     	
 		// Genera nuevos enemigos desde el último tiempo.
-    	if (TimeUtils.nanoTime() - lastEnemy > 1000000000)
-            generateMouses();
+    	if (TimeUtils.nanoTime() - lastEnemy > Constants.SECOND)
+    		generateMouses();
     	
     	// Por cada enemigo:
     	for(int i = 0 ; i < enemies.size ; i++) {
+    		
     		Enemy en = enemies.get(i);
-    		en.move(new Vector2(0, +dt));
-    		if(en.getPosition().y + Constants.PLAYER_WIDTH < 0)
-    			deleteEnemy(en);
+    		en.update(dt);
     		
     		player.checkCollision(en); // Chequea colisión con ese enemigo
     		if(player.getHp() <= 0) {

@@ -23,7 +23,7 @@ public class Player extends Character implements Collidable{
 			getPosition().y = 0;
 		if ((getPosition().x + getTexture().getRegionWidth() >= Constants.SCREEN_WIDTH))
 			getPosition().x = Constants.SCREEN_WIDTH - getTexture().getRegionWidth();
-		if ((getPosition().y + getTexture().getRegionWidth() >= Constants.SCREEN_WIDTH))
+		if ((getPosition().y + getTexture().getRegionWidth() >= Constants.SCREEN_HEIGHT))
 			getPosition().y = Constants.SCREEN_HEIGHT - getTexture().getRegionHeight();
 		
 		if(InputManager.getInstance().isGoingLeft())
