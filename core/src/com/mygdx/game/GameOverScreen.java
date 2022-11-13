@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.managers.InputManager;
 
@@ -16,6 +17,7 @@ public class GameOverScreen implements Screen{
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0, 1);
 		Meowro.getInstance().getBatch().begin();
+		Meowro.getInstance().getFont().setColor(Color.WHITE);
 		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Fin del juego :(", 100, 150);
 		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Máxima puntuación: "+ Meowro.getInstance().getScore(), 100, 130);
 		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Si quieres jugar otra partida pulsa la tecla 'espacio'", 100, 110);

@@ -11,11 +11,11 @@ import com.mygdx.game.util.Interactable;
  */
 public abstract class Enemy extends Character implements Interactable { 
 
-	private int damage;
+	private int givenDamage;
 	
 	public Enemy(Vector2 position, TextureRegion texture, float speed, int hp, int damage, ID id) {
 		super(position, texture, speed, hp, id);
-		this.damage = damage;
+		this.givenDamage = damage;
 		
 	}
 	
@@ -23,7 +23,7 @@ public abstract class Enemy extends Character implements Interactable {
 	public void interaction(Entity e) {
 		if(e.getId() == ID.Player) { // Si es un jugador
 			Player p = (Player) e;
-			p.takeDamage(damage);
+			p.takeDamage(givenDamage);
 			
 		}
 	}

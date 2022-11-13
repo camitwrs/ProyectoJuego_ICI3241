@@ -11,10 +11,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.GameOverScreen;
+import com.mygdx.game.characters.Dog;
 import com.mygdx.game.characters.Enemy;
 import com.mygdx.game.characters.Mouse;
 import com.mygdx.game.characters.Player;
 import com.mygdx.game.util.Constants;
+import com.mygdx.game.util.ID;
 
 public class ObjectManager {
 	private ResourceManager resManager;
@@ -23,7 +25,7 @@ public class ObjectManager {
 	
     private Player player;
     private Array<Enemy> enemies;
-    private boolean debug =true;
+    private boolean debug = true;
     
     // Controla a que ritmo van apareciendo las distintas entidades
     //private long lastItem; // Para cuando spawneemos objetos.
@@ -42,21 +44,40 @@ public class ObjectManager {
     	generatePlayer();
     	// Genera los enemigos
     	enemies = new Array<>();
-    	generateMouses();
+
     }
     
     public void generatePlayer() {
     	player = new Player(new Vector2(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2),
     			resManager.getAtlas().findRegion("wolfFront"),200f,1000);
     }
-    
+    //posX Random
     private int getRandomX() {
     	return MathUtils.random(0, Constants.SCREEN_WIDTH - Constants.PLAYER_WIDTH);
     }
-    
+    //posY Random
     private int getRandomY() {
     	return MathUtils.random(0, Constants.SCREEN_HEIGHT - Constants.PLAYER_WIDTH);
     }
+    //po
+    private Vector2 getPosDog() {
+    	int posX;
+    	int posY;
+    	posX = MathUtils.random(0, Constants.SCREEN_WIDTH - Constants.PLAYER_WIDTH);
+    	if (posX > 0 && posX < Constants.SCREEN_WIDTH) {
+    		if(MathUtils.random(1,2) == 1 )
+    			posY = 0;
+    		else
+    			posY = Constants.SCREEN_HEIGHT;
+    	}else
+    		posY = MathUtils.random(0, Constants.SCREEN_HEIGHT - Constants.PLAYER_WIDTH);
+    	
+    		
+    	return new Vector2(posX, posY);
+    }
+    
+  
+    //random direccion 
     private int random() {
     	if (MathUtils.random(1,10)>7)
     		return 1;
@@ -80,6 +101,17 @@ public class ObjectManager {
             lastEnemy = TimeUtils.nanoTime();
     	}
     }
+    
+    public void generateDog(){
+    	if(enemies.size < 20 ) {
+    		
+    		Vector2 pos = new Vector2(getPosDog());
+        	Enemy enemy = new Dog(pos,  resManager.getAtlas().findRegion("wolfFront"),100f,100, player);
+            enemies.add(enemy);
+            lastEnemy = TimeUtils.nanoTime();
+    	}
+    }
+    
     
     public void render() {
     	
@@ -109,8 +141,8 @@ public class ObjectManager {
     
     private void renderHud() {
     	Meowro.getInstance().getBatch().begin();
-    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Puntos: " + Meowro.getInstance().getScore(), 10, 490);
-    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Salud: " + player.getHp(), 10, 470);
+    	Meowro.getInstance().getFont().setColor(Color.BLACK);
+    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Puntos: " + Meowro.getInstance().getScore(), 10, Constants.SCREEN_HEIGHT-10);
     	Meowro.getInstance().getBatch().end();
     	//Barra Vida Transparencia
         Gdx.gl.glEnable(GL30.GL_BLEND);
@@ -131,9 +163,7 @@ public class ObjectManager {
     	
     	player.update(dt);
     	
-		// Genera nuevos enemigos desde el último tiempo.
-    	if (TimeUtils.nanoTime() - lastEnemy > Constants.SECOND)
-    		generateMouses();
+    	generateEnemies();
     	
     	// Por cada enemigo:
     	for(int i = 0 ; i < enemies.size ; i++) {
@@ -149,7 +179,15 @@ public class ObjectManager {
     	}
     	
     }
-    
+    public void generateEnemies() {
+    	// Genera nuevos ratones desde el último tiempo.
+    	if (TimeUtils.nanoTime() - lastEnemy > Constants.SECOND/2) {
+    		generateMouses();
+    		generateDog();
+    	}
+    	// Genera nuevos perros cada 
+    	
+    }
     public void deleteEnemy(Enemy enemy) {
     	enemies.removeValue(enemy, false);
     }
