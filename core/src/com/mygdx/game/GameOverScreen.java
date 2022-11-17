@@ -4,6 +4,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.managers.InputManager;
+import com.mygdx.game.managers.ObjectManager;
+import com.mygdx.game.managers.ResourceManager;
 
 public class GameOverScreen implements Screen{
 

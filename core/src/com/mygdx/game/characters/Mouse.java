@@ -1,10 +1,11 @@
 package com.mygdx.game.characters;
 
-import javax.swing.text.Position;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Meowro;
+import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.ID;
 
 public class Mouse extends Enemy {
@@ -56,5 +57,15 @@ public class Mouse extends Enemy {
 			Player p = (Player) e;
 			p.stop();
 		}
+	}
+
+	@Override
+	public void render() {
+		// TODO Auto-generated method stub
+		Meowro.getInstance().getBatch().begin();
+		Meowro.getInstance().getBatch().setColor(Color.WHITE);
+		Meowro.getInstance().getBatch().draw(getTexture(), getPosition().x, getPosition().y, Constants.PLAYER_WIDTH,
+				Constants.PLAYER_WIDTH,Constants.PLAYER_WIDTH*0.6f , Constants.PLAYER_WIDTH*0.6f, 1, 1, 0);
+		Meowro.getInstance().getBatch().end();
 	}
 }

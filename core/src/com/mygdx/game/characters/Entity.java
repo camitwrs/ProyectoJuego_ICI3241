@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.ID;
 /*
@@ -33,29 +32,17 @@ public abstract class Entity {
 
 	
 	// Dibuja la entidad en pantalla.
-	public void render(SpriteBatch batch) {
-		batch.begin();
-		if(id==ID.Mouse) {
-			batch.draw(texture, position.x, position.y, Constants.PLAYER_WIDTH,
-					Constants.PLAYER_WIDTH,Constants.PLAYER_WIDTH*0.6f , Constants.PLAYER_WIDTH*0.6f, 1, 1, 0);
-		}else {
-			batch.setColor(Color.BROWN);
-			batch.draw(texture, position.x, position.y, Constants.PLAYER_WIDTH,
-					Constants.PLAYER_WIDTH,Constants.PLAYER_WIDTH , Constants.PLAYER_WIDTH, 1, 1, 0);
-		}
-		batch.setColor(Color.WHITE);
-		batch.end();
-	}
+	public abstract void render();
 	
 	public Vector2 getPosition() {
 		return position;
 	}
 	
-	public void setPositionX(int x) {
+	public void setPositionX(float x) {
 		this.position.x = x;
 	}
 	
-	public void setPositionY(int y) {
+	public void setPositionY(float y) {
 		this.position.y = y;
 	}
 	

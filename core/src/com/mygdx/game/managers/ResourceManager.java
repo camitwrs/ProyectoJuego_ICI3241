@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class ResourceManager {
 
+	private static ResourceManager instance = null;
+	
     // TextureAtlas con los sprites del game
     private TextureAtlas atlas;
    /* Texture player;
@@ -45,4 +47,11 @@ public class ResourceManager {
 
         atlas.dispose();
     }
+    
+    public static ResourceManager getInstance() {
+		if (instance == null)
+			instance = new ResourceManager();
+		
+		return instance;
+	}
 }

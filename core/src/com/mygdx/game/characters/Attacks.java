@@ -11,9 +11,16 @@ public abstract class Attacks extends Entity{
 
 	int damageDone;
 	
-	public Attacks(Vector2 position, TextureRegion texture, ID id, int damageDone) {
+	public Attacks(Vector2 position, TextureRegion texture,ID id, int damageDone) {
 		super(position, texture, id);
 		this.damageDone = damageDone;
+	}
+	
+	public void move(Vector2 movement) {
+		
+		//movement.scl(speed);
+		getPosition().add(movement);
+		updateRect();
 	}
 	
 	

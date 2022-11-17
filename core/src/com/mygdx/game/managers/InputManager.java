@@ -1,8 +1,14 @@
 package com.mygdx.game.managers;
 
+import java.awt.event.MouseEvent;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.util.Constants;
 
 public class InputManager {
 	
@@ -36,6 +42,28 @@ public class InputManager {
 		return false;
 	}
 	
+	public float getPosMouseX(float pointer) {
+		//System.out.println(Gdx.input.getX());
+		return Gdx.input.getX();
+	}
+	public float getPosMouseY(float pointer) {
+		
+		//System.out.println(Gdx.input.getY());
+		//System.out.println(Gdx.input.getX((int)pointer)+"pointer");
+		return Gdx.input.getY();
+	}
+	
+	public Vector2 mouseClicked(Rectangle rectangle) {
+		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+			Vector2 posMouse = new Vector2();
+			posMouse.x = getPosMouseX(rectangle.x);
+			posMouse.y = getPosMouseY(rectangle.y);
+			System.out.println(posMouse.toString());
+			//System.out.println(rectangle.x+","+rectangle.y);
+			return posMouse;
+		}
+		return null;
+	}
 	/*public Vector2 getInputMove() {
 		
 		Vector2 input = new Vector2();
@@ -79,6 +107,7 @@ public class InputManager {
 		
 		return instance;
 	}
+
 	
 	
 }

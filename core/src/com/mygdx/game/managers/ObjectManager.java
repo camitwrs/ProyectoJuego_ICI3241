@@ -11,20 +11,26 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.GameOverScreen;
+import com.mygdx.game.characters.Attacks;
 import com.mygdx.game.characters.Dog;
 import com.mygdx.game.characters.Enemy;
+import com.mygdx.game.characters.Entity;
+import com.mygdx.game.characters.Furball;
+import com.mygdx.game.characters.Item;
 import com.mygdx.game.characters.Mouse;
 import com.mygdx.game.characters.Player;
 import com.mygdx.game.util.Constants;
-import com.mygdx.game.util.ID;
 
 public class ObjectManager {
-	private ResourceManager resManager;
+	
+	private static ObjectManager instance = null;
 	ShapeRenderer shapeRenderer = new ShapeRenderer();
 	
-	
+
     private Player player;
     private Array<Enemy> enemies;
+    private Array<Item> items;
+    
     private boolean debug = true;
     
     // Controla a que ritmo van apareciendo las distintas entidades
@@ -32,25 +38,28 @@ public class ObjectManager {
     private long lastEnemy;
     //private float gameTime; // Por si más adelante le ponemos límite de tiempo.
     
-    public ObjectManager(ResourceManager res) {
-    	resManager = res;
-    	//generatePlayer();
-    	//generateEnemies();
+    public ObjectManager() {
     	init();
     }
     
     private void init() {
+    	//generateBall();
     	// Representa al player en el juego
     	generatePlayer();
     	// Genera los enemigos
     	enemies = new Array<>();
 
     }
+    public void generateBall() {
+ //   	Furball fb = new Furball(new Vector2(player.getPosition().x+16,player.getPosition().y+24),resManager.getAtlas().findRegion("wolfFront"),1000);
+    	//attacks.add(fb);
+    }
     
     public void generatePlayer() {
     	player = new Player(new Vector2(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2),
-    			resManager.getAtlas().findRegion("wolfFront"),200f,1000);
+    			ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),200f,1000);
     }
+    
     //posX Random
     private int getRandomX() {
     	return MathUtils.random(0, Constants.SCREEN_WIDTH - Constants.PLAYER_WIDTH);
@@ -96,7 +105,7 @@ public class ObjectManager {
     				Math.abs(pos.y - player.getPosition().y) >= Constants.PLAYER_WIDTH/2) {
     			pos = new Vector2(pos.x-10,pos.y-10);
     		}
-        	Enemy enemy = new Mouse(pos,  resManager.getAtlas().findRegion("jiniretFront"),200f,100,x,y);
+        	Enemy enemy = new Mouse(pos,  ResourceManager.getInstance().getAtlas().findRegion("jiniretFront"),200f,100,x,y);
             enemies.add(enemy);
             lastEnemy = TimeUtils.nanoTime();
     	}
@@ -106,7 +115,7 @@ public class ObjectManager {
     	if(enemies.size < 20 ) {
     		
     		Vector2 pos = new Vector2(getPosDog());
-        	Enemy enemy = new Dog(pos,  resManager.getAtlas().findRegion("wolfFront"),100f,100, player);
+        	Enemy enemy = new Dog(pos,  ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),100f,100, player);
             enemies.add(enemy);
             lastEnemy = TimeUtils.nanoTime();
     	}
@@ -131,9 +140,9 @@ public class ObjectManager {
     	}
     	
     	//Dibujo de Entidades
-    	player.render(Meowro.getInstance().getBatch());
+    	player.render();
     	for(Enemy en : enemies) {
-    		en.render(Meowro.getInstance().getBatch());	
+    		en.render();	
     	}
     	renderHud();
     	
@@ -162,6 +171,9 @@ public class ObjectManager {
     	Meowro.getInstance().setScore(Meowro.getInstance().getScore() + 1); // Para que el puntaje vaya aumentando.
     	
     	player.update(dt);
+    	
+    	if(player.getFurball()!=null)
+    		player.getFurball().update(dt);
     	
     	generateEnemies();
     	
@@ -193,7 +205,14 @@ public class ObjectManager {
     }
     
     public void dispose() {
-    	resManager.dispose();
+    	ResourceManager.getInstance().dispose();
     	enemies.clear();
     }
+    
+    public static ObjectManager getInstance() {
+		if (instance == null)
+			instance = new ObjectManager();
+		
+		return instance;
+	}
 }
