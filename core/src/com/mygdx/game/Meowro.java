@@ -4,11 +4,13 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Meowro extends Game {
 	private SpriteBatch batch; // Area sobre la cual se colocan los "dibujos/sprites". Lienzo.
 	private BitmapFont font; // Texto.
 	private OrthographicCamera camera; //misma camara siempre
+	private ShapeRenderer sr;
 	private int score;
 
 	private static Meowro instance = null;
@@ -18,6 +20,7 @@ public class Meowro extends Game {
 			
 		batch = new SpriteBatch();
 		font = new BitmapFont();
+		sr = new ShapeRenderer();
 		setScreen(new MainMenuScreen());
 	}
 
@@ -59,4 +62,9 @@ public class Meowro extends Game {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	
+	public ShapeRenderer getSR() {
+		return sr;
+	}
+	
 }

@@ -1,16 +1,13 @@
 package com.mygdx.game.characters;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.ID;
 /*
  * Clase suprema. 1er nivel. Engloba todo.
  */
-public abstract class Entity { 
+public abstract class Entity {
 	private Vector2 position;
 	private TextureRegion texture;
 	private Rectangle rect;
@@ -22,14 +19,10 @@ public abstract class Entity {
 		this.texture = texture;
 		this.id = id;
 		
-		if(id == ID.Mouse)
-			rect = new Rectangle(position.x, position.y, (texture.getRegionWidth()*0.6f), (texture.getRegionHeight()*0.6f));
-		else
-			rect = new Rectangle(position.x, position.y, texture.getRegionWidth(), texture.getRegionHeight());
 	}
 	
 	public abstract void update(float dt);
-
+	public abstract Rectangle makeRect();
 	
 	// Dibuja la entidad en pantalla.
 	public abstract void render();
@@ -50,6 +43,9 @@ public abstract class Entity {
 		this.position = v;
 	}
 	
+	public void setRect(Rectangle rect) {
+		this.rect = rect;
+	}
 
 	public Rectangle getRect() {
 		return rect;
@@ -67,5 +63,5 @@ public abstract class Entity {
 		rect.x = position.x;
 		rect.y = position.y;
 	}
-
+	
 }

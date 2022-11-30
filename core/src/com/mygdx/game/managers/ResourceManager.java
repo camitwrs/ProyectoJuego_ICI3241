@@ -41,8 +41,6 @@ public class ResourceManager {
         return atlas;
     }
 
-
-
     public void dispose() {
 
         atlas.dispose();
@@ -54,4 +52,6 @@ public class ResourceManager {
 		
 		return instance;
 	}
+    
+
 }

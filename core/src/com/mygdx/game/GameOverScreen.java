@@ -27,7 +27,7 @@ public class GameOverScreen implements Screen{
 		Meowro.getInstance().getBatch().end();
 		
 		if (InputManager.getInstance().getInputMainMenu() == 4) {
-			Meowro.getInstance().setScore(0);
+			//Meowro.getInstance().setScore(0);
 			Meowro.getInstance().setScreen(new GameScreen());
 		}
 		if (InputManager.getInstance().getInputMainMenu() == 1) {

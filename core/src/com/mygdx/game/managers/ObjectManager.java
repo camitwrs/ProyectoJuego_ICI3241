@@ -23,11 +23,9 @@ import com.mygdx.game.util.Constants;
 
 public class ObjectManager {
 	
-	private static ObjectManager instance = null;
-	ShapeRenderer shapeRenderer = new ShapeRenderer();
 	
-
     private Player player;
+    private Furball fb; 
     private Array<Enemy> enemies;
     private Array<Item> items;
     
@@ -50,11 +48,6 @@ public class ObjectManager {
     	enemies = new Array<>();
 
     }
-    public void generateBall() {
- //   	Furball fb = new Furball(new Vector2(player.getPosition().x+16,player.getPosition().y+24),resManager.getAtlas().findRegion("wolfFront"),1000);
-    	//attacks.add(fb);
-    }
-    
     public void generatePlayer() {
     	player = new Player(new Vector2(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2),
     			ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),200f,1000);
@@ -105,7 +98,7 @@ public class ObjectManager {
     				Math.abs(pos.y - player.getPosition().y) >= Constants.PLAYER_WIDTH/2) {
     			pos = new Vector2(pos.x-10,pos.y-10);
     		}
-        	Enemy enemy = new Mouse(pos,  ResourceManager.getInstance().getAtlas().findRegion("jiniretFront"),200f,100,x,y);
+    		Enemy enemy = new Mouse(pos,  ResourceManager.getInstance().getAtlas().findRegion("jiniretFront"),200f,100,x,y);
             enemies.add(enemy);
             lastEnemy = TimeUtils.nanoTime();
     	}
@@ -115,7 +108,7 @@ public class ObjectManager {
     	if(enemies.size < 20 ) {
     		
     		Vector2 pos = new Vector2(getPosDog());
-        	Enemy enemy = new Dog(pos,  ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),100f,100, player);
+    		Enemy enemy = new Dog(pos,  ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),100f,100, player);
             enemies.add(enemy);
             lastEnemy = TimeUtils.nanoTime();
     	}
@@ -124,47 +117,34 @@ public class ObjectManager {
     
     public void render() {
     	
-    	//para revisar el manejo de colisiones en rectangulos
-    	if (debug) {
-    		shapeRenderer.begin(ShapeType.Line);
-    		shapeRenderer.setColor(Color.RED);
-    		shapeRenderer.rect(player.getRect().x, player.getRect().y, player.getRect().height, player.getRect().width);
-    	
-    	
-	    	for(Enemy en : enemies) {	
-	    		shapeRenderer.setColor(Color.BLUE);
-				shapeRenderer.rect(en.getRect().x, en.getRect().y,
-						en.getRect().height, en.getRect().width);
-	    	}
-	    	shapeRenderer.end();
-    	}
+    	debugging();
     	
     	//Dibujo de Entidades
     	player.render();
     	for(Enemy en : enemies) {
     		en.render();	
     	}
-    	renderHud();
     	
     }
     
-    private void renderHud() {
-    	Meowro.getInstance().getBatch().begin();
-    	Meowro.getInstance().getFont().setColor(Color.BLACK);
-    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Puntos: " + Meowro.getInstance().getScore(), 10, Constants.SCREEN_HEIGHT-10);
-    	Meowro.getInstance().getBatch().end();
-    	//Barra Vida Transparencia
-        Gdx.gl.glEnable(GL30.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(128, 128, 128, 0.5f);
-        shapeRenderer.rect(15,15,200,32);  
-        shapeRenderer.setColor(0, 0, 255, 0.5f);
-        shapeRenderer.rect(15,15,(200*player.getHp()*0.001f),32);
-        shapeRenderer.end();
-        Gdx.gl.glDisable(GL30.GL_BLEND);
-        
-	}
+    public void debugging() {
+    	//para revisar el manejo de colisiones en rectangulos
+    	if (debug) {
+    		Meowro.getInstance().getSR().begin(ShapeType.Line); 
+    		Meowro.getInstance().getSR().setColor(Color.RED);
+    		Meowro.getInstance().getSR().rect(player.getRect().x, player.getRect().y, player.getRect().height, player.getRect().width);
+    	
+    	
+	    	for(Enemy en : enemies) {	
+	    		Meowro.getInstance().getSR().setColor(Color.BLUE);
+	    		Meowro.getInstance().getSR().rect(en.getRect().x, en.getRect().y,
+						en.getRect().height, en.getRect().width);
+	    	}
+	    	Meowro.getInstance().getSR().end();
+    	}
+    }
+    
+
 
 	public void update(float dt) {
 		
@@ -203,16 +183,14 @@ public class ObjectManager {
     public void deleteEnemy(Enemy enemy) {
     	enemies.removeValue(enemy, false);
     }
+    public Player getPlayer() {
+    	return player;
+    }
     
     public void dispose() {
     	ResourceManager.getInstance().dispose();
     	enemies.clear();
     }
     
-    public static ObjectManager getInstance() {
-		if (instance == null)
-			instance = new ObjectManager();
-		
-		return instance;
-	}
+
 }

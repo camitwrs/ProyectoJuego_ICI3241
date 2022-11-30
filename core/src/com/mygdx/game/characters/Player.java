@@ -4,6 +4,7 @@ package com.mygdx.game.characters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Meowro;
@@ -23,6 +24,7 @@ public class Player extends Character implements Collidable{
 	
 	public Player(Vector2 position, TextureRegion texture, float speed, int hp) {
 		super(position, texture, speed, hp, ID.Player);
+		setRect(makeRect());
 		ammo = 40;
 	}
 
@@ -55,7 +57,7 @@ public class Player extends Character implements Collidable{
 			Vector2 posMouse = new Vector2();
 			posMouse = InputManager.getInstance().mouseClicked(getRect());
 			System.out.println("2"+posMouse.toString());
-			fb = new Furball(new Vector2(getRect().x,getRect().y),ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),1000,posMouse);
+			fb = new Furball(new Vector2(getRect().x,getRect().y),ResourceManager.getInstance().getAtlas().findRegion("Mi_proyecto_64x64"),1000,posMouse);
 			ammo-=1;
 			//fb.update(dt); // Se dispara la bala.
 		}
@@ -87,7 +89,15 @@ public class Player extends Character implements Collidable{
 			fb.render();
 		}
 	}
+	
 	public Furball getFurball() {
 		return fb;
+	}
+
+	@Override
+	public Rectangle makeRect() {
+		// TODO Auto-generated method stub
+		return new Rectangle(getPosition().x, getPosition().y, getTexture().getRegionWidth(), getTexture().getRegionHeight());
+
 	}
 }

@@ -2,6 +2,7 @@ package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.util.Constants;
@@ -12,6 +13,7 @@ public class Dog extends Enemy {
 	
 	public Dog(Vector2 position, TextureRegion texture, float speed, int hp, Player player) {
 		super(position, texture, speed, hp, 50, ID.Dog);
+		setRect(makeRect());
 		this.player = player;
 	}
 	
@@ -40,6 +42,12 @@ public class Dog extends Enemy {
 		Meowro.getInstance().getBatch().draw(getTexture(), getPosition().x, getPosition().y, Constants.PLAYER_WIDTH,
 				Constants.PLAYER_WIDTH,Constants.PLAYER_WIDTH , Constants.PLAYER_WIDTH, 1, 1, 0);
 		Meowro.getInstance().getBatch().end();
+	}
+
+
+	@Override
+	public Rectangle makeRect() {
+		return new Rectangle(getPosition().x, getPosition().y, getTexture().getRegionWidth(), getTexture().getRegionHeight());
 	}
 
 }

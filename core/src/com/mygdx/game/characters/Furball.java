@@ -3,6 +3,7 @@ package com.mygdx.game.characters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.managers.InputManager;
@@ -17,6 +18,7 @@ public class Furball extends Attacks {
 
 	public Furball(Vector2 position, TextureRegion texture, int damageDone, Vector2 posMouse) {
 		super(position, texture, ID.Furball, damageDone);
+		setRect(makeRect());
 		//this.posMouse = posMouse;
 		dst = posMouse.sub(getPosition());
 		dst.y *=-1;
@@ -56,10 +58,16 @@ public class Furball extends Attacks {
 	@Override
 	public void render() {
 		Meowro.getInstance().getBatch().begin();
-		Meowro.getInstance().getBatch().setColor(Color.BLUE);
 		Meowro.getInstance().getBatch().draw(getTexture(), getPosition().x, getPosition().y, Constants.PLAYER_WIDTH,
 				Constants.PLAYER_WIDTH,Constants.PLAYER_WIDTH*0.6f , Constants.PLAYER_WIDTH*0.6f, 1, 1, 0);
 		Meowro.getInstance().getBatch().end();
+	}
+
+
+	@Override
+	public Rectangle makeRect() {
+		return new Rectangle(getPosition().x, getPosition().y, getTexture().getRegionWidth()*0.6f, getTexture().getRegionHeight()*0.6f);
+
 	}
 
 }

@@ -3,6 +3,7 @@ package com.mygdx.game.characters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.util.Constants;
@@ -15,6 +16,8 @@ public class Mouse extends Enemy {
 	
 	public Mouse(Vector2 position, TextureRegion texture, float speed, int hp, int dirX, int dirY) {
 		super(position, texture, speed, hp, 25, ID.Mouse);
+		setRect(makeRect());
+		
 		this.dirX = dirX;
 		this.dirY = dirY;
 	}
@@ -67,5 +70,11 @@ public class Mouse extends Enemy {
 		Meowro.getInstance().getBatch().draw(getTexture(), getPosition().x, getPosition().y, Constants.PLAYER_WIDTH,
 				Constants.PLAYER_WIDTH,Constants.PLAYER_WIDTH*0.6f , Constants.PLAYER_WIDTH*0.6f, 1, 1, 0);
 		Meowro.getInstance().getBatch().end();
+	}
+
+	@Override
+	public Rectangle makeRect() {
+		return new Rectangle(getPosition().x, getPosition().y, (getTexture().getRegionWidth()*0.6f), (getTexture().getRegionHeight()*0.6f));
+		
 	}
 }
