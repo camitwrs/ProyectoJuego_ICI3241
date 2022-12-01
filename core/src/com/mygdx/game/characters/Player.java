@@ -10,12 +10,13 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.managers.InputManager;
 import com.mygdx.game.managers.ResourceManager;
+import com.mygdx.game.strategyclasses.PlayerMovement;
 import com.mygdx.game.util.Collidable;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.ID;
 import com.mygdx.game.util.Interactable;
 
-public class Player extends Character implements Collidable{
+public class Player extends PlayerMovement implements Collidable{
 
 	private boolean hurted;
 	private long timeHurt;
@@ -28,7 +29,7 @@ public class Player extends Character implements Collidable{
 		ammo = 40;
 	}
 
-	@Override
+	//@Override
 	public void update(float dt) {
 		// Comprueba que no se salga de los bordes de la pantalla 
 		if (getPosition().x <= 0)
@@ -65,7 +66,7 @@ public class Player extends Character implements Collidable{
 		
 	}
 	
-	@Override
+	//@Override
 	public void checkCollision(Interactable i) {
 		if (getRect().overlaps(i.getRect())) {
 			
@@ -94,7 +95,7 @@ public class Player extends Character implements Collidable{
 		return fb;
 	}
 
-	@Override
+	//@Override
 	public Rectangle makeRect() {
 		// TODO Auto-generated method stub
 		return new Rectangle(getPosition().x, getPosition().y, getTexture().getRegionWidth(), getTexture().getRegionHeight());
