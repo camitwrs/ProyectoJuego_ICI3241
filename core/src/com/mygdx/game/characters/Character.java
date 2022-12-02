@@ -2,6 +2,7 @@ package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.patterns.MovementStrategy;
 import com.mygdx.game.util.ID;
 /*
  * Subclase. 2do nivel. Se refiere a los personajes.
@@ -11,6 +12,7 @@ public abstract class Character extends Entity { //
 	
 	private float speed;	
 	private int hp;
+	MovementStrategy typeOfMove;
 	
 	public Character(Vector2 position, TextureRegion texture, float speed, int hp, ID id) {
 		super(position, texture, id);
@@ -33,8 +35,12 @@ public abstract class Character extends Entity { //
 		return hp;
 	}
 	
+	public void setTypeOfMovement(MovementStrategy ms) {
+		typeOfMove = ms;
+	}
 	
-
-	
+	public void doTypeOfMovement(float d) {
+		typeOfMove.moveBehavior(d);
+	}
 	
 }

@@ -38,5 +38,6 @@ public abstract class Enemy extends Character implements Interactable {
 			return 2;
 		return 0;
 		
+		
 	}
 }

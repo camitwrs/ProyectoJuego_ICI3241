@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Meowro;
+import com.mygdx.game.patterns.MovementStrategy;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.ID;
 
@@ -24,17 +25,10 @@ public class Mouse extends Enemy {
 
 	@Override
 	public void update(float dt) {
-		if (outBounds() == 1) {
-			dirX*=-1;
-		}else if(outBounds() == 2) {
-			dirY*=-1;
-		}
+		
+		this.doTypeOfMovement(dt);
 			
-		move(new Vector2(dirX*dt, dirY*dt));
-		
-		
 	}
-
 
 	@Override
 	public void interaction(Entity e) {
@@ -77,4 +71,23 @@ public class Mouse extends Enemy {
 		return new Rectangle(getPosition().x, getPosition().y, (getTexture().getRegionWidth()*0.6f), (getTexture().getRegionHeight()*0.6f));
 		
 	}
+
+	public int getDirX() {
+		return dirX;
+	}
+
+	public int getDirY() {
+		return dirY;
+	}
+
+	public void setDirX(int dirX) {
+		this.dirX = dirX;
+	}
+
+	public void setDirY(int dirY) {
+		this.dirY = dirY;
+		
+	}
+
+	
 }

@@ -20,6 +20,7 @@ import com.mygdx.game.characters.Item;
 import com.mygdx.game.characters.Mouse;
 import com.mygdx.game.characters.Player;
 import com.mygdx.game.util.Constants;
+import com.mygdx.game.patterns.*;
 
 public class ObjectManager {
 	
@@ -51,6 +52,8 @@ public class ObjectManager {
     public void generatePlayer() {
     	player = new Player(new Vector2(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2),
     			ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),200f,1000);
+    	
+    	player.setTypeOfMovement(new PlayerMovement(player));
     }
     
     //posX Random
@@ -61,7 +64,7 @@ public class ObjectManager {
     private int getRandomY() {
     	return MathUtils.random(0, Constants.SCREEN_HEIGHT - Constants.PLAYER_WIDTH);
     }
-    //po
+
     private Vector2 getPosDog() {
     	int posX;
     	int posY;
@@ -98,8 +101,10 @@ public class ObjectManager {
     				Math.abs(pos.y - player.getPosition().y) >= Constants.PLAYER_WIDTH/2) {
     			pos = new Vector2(pos.x-10,pos.y-10);
     		}
-    		Enemy enemy = new Mouse(pos,  ResourceManager.getInstance().getAtlas().findRegion("jiniretFront"),200f,100,x,y);
-            enemies.add(enemy);
+    		Mouse mouse = new Mouse(pos,  ResourceManager.getInstance().getAtlas().findRegion("jiniretFront"),200f,100,x,y);
+    		mouse.setTypeOfMovement(new MouseMovement(mouse));
+    		
+            enemies.add(mouse);
             lastEnemy = TimeUtils.nanoTime();
     	}
     }
@@ -108,8 +113,10 @@ public class ObjectManager {
     	if(enemies.size < 20 ) {
     		
     		Vector2 pos = new Vector2(getPosDog());
-    		Enemy enemy = new Dog(pos,  ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),100f,100, player);
-            enemies.add(enemy);
+    		Dog dog = new Dog(pos, ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),100f,100, player);
+    		dog.setTypeOfMovement(new DogMovement(dog, player));
+    		
+            enemies.add(dog);
             lastEnemy = TimeUtils.nanoTime();
     	}
     }

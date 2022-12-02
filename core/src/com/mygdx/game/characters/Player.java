@@ -1,7 +1,5 @@
 package com.mygdx.game.characters;
 
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -10,13 +8,13 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.Meowro;
 import com.mygdx.game.managers.InputManager;
 import com.mygdx.game.managers.ResourceManager;
-import com.mygdx.game.strategyclasses.PlayerMovement;
+import com.mygdx.game.patterns.MovementStrategy;
 import com.mygdx.game.util.Collidable;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.ID;
 import com.mygdx.game.util.Interactable;
 
-public class Player extends PlayerMovement implements Collidable{
+public class Player extends Character implements Collidable{
 
 	private boolean hurted;
 	private long timeHurt;
@@ -31,29 +29,10 @@ public class Player extends PlayerMovement implements Collidable{
 
 	//@Override
 	public void update(float dt) {
-		// Comprueba que no se salga de los bordes de la pantalla 
-		if (getPosition().x <= 0)
-			getPosition().x = 0;
-		if(getPosition().y < 0)
-			getPosition().y = 0;
-		if ((getPosition().x + getTexture().getRegionWidth() >= Constants.SCREEN_WIDTH))
-			getPosition().x = Constants.SCREEN_WIDTH - getTexture().getRegionWidth();
-		if ((getPosition().y + getTexture().getRegionWidth() >= Constants.SCREEN_HEIGHT))
-			getPosition().y = Constants.SCREEN_HEIGHT - getTexture().getRegionHeight();
-		if (hurted && TimeUtils.nanoTime() - timeHurt < Constants.SECOND/4)
-			return;
-		else {
-			hurted = false;
-			timeHurt = TimeUtils.nanoTime();
-		}
-		if(InputManager.getInstance().isGoingLeft())
-			this.move(new Vector2(-1 * dt , 0));
-		if(InputManager.getInstance().isGoingRight())
-			this.move(new Vector2(1 * dt , 0));
-		if(InputManager.getInstance().isGoingDown())
-			this.move(new Vector2(0 , -1 * dt));
-		if(InputManager.getInstance().isGoingUp())
-			this.move(new Vector2(0 , 1 * dt));
+		
+		this.doTypeOfMovement(dt);
+		
+		// Crea bala al clickear (No debería estar aquí. MsgBy: Cami)
 		if(InputManager.getInstance().mouseClicked(getRect()) != null) {
 			Vector2 posMouse = new Vector2();
 			posMouse = InputManager.getInstance().mouseClicked(getRect());
@@ -62,14 +41,12 @@ public class Player extends PlayerMovement implements Collidable{
 			ammo-=1;
 			//fb.update(dt); // Se dispara la bala.
 		}
-		
-		
+	
 	}
 	
 	//@Override
 	public void checkCollision(Interactable i) {
 		if (getRect().overlaps(i.getRect())) {
-			
 			i.interaction(this);
 		}
 	}
@@ -78,7 +55,6 @@ public class Player extends PlayerMovement implements Collidable{
 		hurted = true;
 	}
 
-	@Override
 	public void render() {
 		// TODO Auto-generated method stub
 		Meowro.getInstance().getBatch().begin();
@@ -99,6 +75,8 @@ public class Player extends PlayerMovement implements Collidable{
 	public Rectangle makeRect() {
 		// TODO Auto-generated method stub
 		return new Rectangle(getPosition().x, getPosition().y, getTexture().getRegionWidth(), getTexture().getRegionHeight());
-
 	}
+	
+	
+
 }

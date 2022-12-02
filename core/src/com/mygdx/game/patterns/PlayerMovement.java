@@ -1,0 +1,42 @@
+package com.mygdx.game.patterns;
+
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.characters.Player;
+import com.mygdx.game.managers.InputManager;
+import com.mygdx.game.util.Constants;
+
+public class PlayerMovement implements MovementStrategy {
+	
+	Player p;
+	
+	public PlayerMovement(Player p) {
+		this.p = p;
+	}
+
+	@Override
+	public void moveBehavior(float dt) {
+		
+		// Movimiento respecto límites de pantalla
+		
+		if (p.getPosition().x <= 0) p.getPosition().x = 0;
+		if(p.getPosition().y < 0) p.getPosition().y = 0;
+		if ((p.getPosition().x + p.getTexture().getRegionWidth() >= Constants.SCREEN_WIDTH))
+			p.getPosition().x = Constants.SCREEN_WIDTH - p.getTexture().getRegionWidth();
+		if ((p.getPosition().y + p.getTexture().getRegionWidth() >= Constants.SCREEN_HEIGHT))
+			p.getPosition().y = Constants.SCREEN_HEIGHT - p.getTexture().getRegionHeight();
+				
+		// Movimiento respecto input
+				
+		if(InputManager.getInstance().isGoingLeft())
+			p.move(new Vector2(-1 * dt , 0));
+		if(InputManager.getInstance().isGoingRight())
+			p.move(new Vector2(1 * dt , 0));
+		if(InputManager.getInstance().isGoingDown())
+			p.move(new Vector2(0 , -1 * dt));
+		if(InputManager.getInstance().isGoingUp())
+			p.move(new Vector2(0 , 1 * dt));	
+				
+	}
+		
+}
+

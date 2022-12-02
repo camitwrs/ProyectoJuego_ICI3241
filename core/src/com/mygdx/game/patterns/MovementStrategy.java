@@ -1,5 +1,5 @@
 package com.mygdx.game.patterns;
 
 public interface MovementStrategy {
-	public void update(float dt);
+	public void moveBehavior(float dt); // Forma de movimiento en la pantalla.
 }
