@@ -36,10 +36,10 @@ public class GameScreen implements Screen{
 	public void render(float delta) {
 		// Limpia y pinta rojo oscuro.
 		ScreenUtils.clear(0, 0, 0, 1);
-		Meowro.getInstance().getBatch().begin();
-		Meowro.getInstance().getBatch().setColor(Color.WHITE);
-		Meowro.getInstance().getBatch().draw(fondo, 0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-		Meowro.getInstance().getBatch().end();
+		BaseGameSingleton.getInstance().getBatch().begin();
+		BaseGameSingleton.getInstance().getBatch().setColor(Color.WHITE);
+		BaseGameSingleton.getInstance().getBatch().draw(fondo, 0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+		BaseGameSingleton.getInstance().getBatch().end();
 		//Meowro.getInstance().getCamera().update();
 		//Meowro.getInstance().getBatch().setProjectionMatrix(Meowro.getInstance().getCamera().combined); // Representa la vista combinada y la matriz de proyeccion.
 		// Actualiza
@@ -51,19 +51,19 @@ public class GameScreen implements Screen{
 	}
 	
     private void renderHud() {
-    	Meowro.getInstance().getBatch().begin();
-    	Meowro.getInstance().getFont().setColor(Color.BLACK);
-    	Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Puntos: " + Meowro.getInstance().getScore(), 10, Constants.SCREEN_HEIGHT-10);
-    	Meowro.getInstance().getBatch().end();
+    	BaseGameSingleton.getInstance().getBatch().begin();
+    	BaseGameSingleton.getInstance().getFont().setColor(Color.BLACK);
+    	BaseGameSingleton.getInstance().getFont().draw(BaseGameSingleton.getInstance().getBatch(), "Puntos: " + BaseGameSingleton.getInstance().getScore(), 10, Constants.SCREEN_HEIGHT-10);
+    	BaseGameSingleton.getInstance().getBatch().end();
     	//Barra Vida Transparencia
         Gdx.gl.glEnable(GL30.GL_BLEND);
         Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
-        Meowro.getInstance().getSR().begin(ShapeType.Filled);
-        Meowro.getInstance().getSR().setColor(128, 128, 128, 0.5f);
-        Meowro.getInstance().getSR().rect(15,15,200,32);  
-        Meowro.getInstance().getSR().setColor(0, 0, 255, 0.5f);
-        Meowro.getInstance().getSR().rect(15,15,(200*obManager.getPlayer().getHp()*0.001f),32);
-        Meowro.getInstance().getSR().end();
+        BaseGameSingleton.getInstance().getSR().begin(ShapeType.Filled);
+        BaseGameSingleton.getInstance().getSR().setColor(128, 128, 128, 0.5f);
+        BaseGameSingleton.getInstance().getSR().rect(15,15,200,32);  
+        BaseGameSingleton.getInstance().getSR().setColor(0, 0, 255, 0.5f);
+        BaseGameSingleton.getInstance().getSR().rect(15,15,(200*obManager.getPlayer().getHp()*0.001f),32);
+        BaseGameSingleton.getInstance().getSR().end();
         Gdx.gl.glDisable(GL30.GL_BLEND);
         
 	}

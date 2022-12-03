@@ -1,7 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.game.managers.InputManager;
+import com.mygdx.game.managers.InputManagerSingleton;
 
 public class MainMenuScreen implements Screen {
 
@@ -10,21 +10,21 @@ public class MainMenuScreen implements Screen {
 		// Limpia la pantalla
 		ScreenUtils.clear(0, 0, 0, 1);
 		// Dibuja el menu
-		Meowro.getInstance().getBatch().begin();
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Bienvenido a MEOWRO", 340, 350);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Pulsa 'ENTER' para empezar", 330, 310);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Pulsa 'ESCAPE' para SALIR", 330, 290);
-		Meowro.getInstance().getBatch().end();
+		BaseGameSingleton.getInstance().getBatch().begin();
+		BaseGameSingleton.getInstance().getFont().draw(BaseGameSingleton.getInstance().getBatch(), "Bienvenido a MEOWRO", 340, 350);
+		BaseGameSingleton.getInstance().getFont().draw(BaseGameSingleton.getInstance().getBatch(), "Pulsa 'ENTER' para empezar", 330, 310);
+		BaseGameSingleton.getInstance().getFont().draw(BaseGameSingleton.getInstance().getBatch(), "Pulsa 'ESCAPE' para SALIR", 330, 290);
+		BaseGameSingleton.getInstance().getBatch().end();
 		
 		// Chequeo de input
 		// ESCAPE
-		if (InputManager.getInstance().getInputMainMenu() == 1) {
+		if (InputManagerSingleton.getInstance().getInputMainMenu() == 1) {
 			dispose();
 			System.exit(0);
 		}
 		// ENTER
-		if (InputManager.getInstance().getInputMainMenu() == 3) {
-			Meowro.getInstance().setScreen(new GameScreen());
+		if (InputManagerSingleton.getInstance().getInputMainMenu() == 3) {
+			BaseGameSingleton.getInstance().setScreen(new GameScreen());
 			dispose();
 		}
 	}

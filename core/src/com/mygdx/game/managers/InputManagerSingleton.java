@@ -1,18 +1,14 @@
 package com.mygdx.game.managers;
 
-import java.awt.event.MouseEvent;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.util.Constants;
 
-public class InputManager {
+public class InputManagerSingleton {
 	
-	private static InputManager instance = null;
+	private static InputManagerSingleton instance = null;
 	
 	public boolean isGoingLeft() {
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || (Gdx.input.isKeyPressed(Input.Keys.A))) {
@@ -43,13 +39,10 @@ public class InputManager {
 	}
 	
 	public float getPosMouseX(float pointer) {
-		//System.out.println(Gdx.input.getX());
 		return Gdx.input.getX();
 	}
+	
 	public float getPosMouseY(float pointer) {
-		
-		//System.out.println(Gdx.input.getY());
-		//System.out.println(Gdx.input.getX((int)pointer)+"pointer");
 		return Gdx.input.getY();
 	}
 	
@@ -64,24 +57,6 @@ public class InputManager {
 		}
 		return null;
 	}
-	/*public Vector2 getInputMove() {
-		
-		Vector2 input = new Vector2();
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			input.x = -1;
-		} 
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			input.x = 1;
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-			input.y = -1;
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-			input.y = 1;
-		}
-		
-		return input;
-	}*/
 	
 	public int getInputMainMenu() {
 		// CASO 1: Si la tecla "escape" es apretada.
@@ -101,13 +76,11 @@ public class InputManager {
 		return 0;
 	}
 	
-	public static InputManager getInstance() {
+	public static InputManagerSingleton getInstance() {
 		if (instance == null)
-			instance = new 	InputManager();
+			instance = new 	InputManagerSingleton();
 		
 		return instance;
 	}
 
-	
-	
 }

@@ -3,9 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.game.managers.InputManager;
-import com.mygdx.game.managers.ObjectManager;
-import com.mygdx.game.managers.ResourceManager;
+import com.mygdx.game.managers.InputManagerSingleton;
 
 public class GameOverScreen implements Screen{
 
@@ -18,19 +16,19 @@ public class GameOverScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0, 1);
-		Meowro.getInstance().getBatch().begin();
-		Meowro.getInstance().getFont().setColor(Color.WHITE);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Fin del juego :(", 100, 150);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Máxima puntuación: "+ Meowro.getInstance().getScore(), 100, 130);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Si quieres jugar otra partida pulsa la tecla 'espacio'", 100, 110);
-		Meowro.getInstance().getFont().draw(Meowro.getInstance().getBatch(), "Pulsa 'ESCAPE' para SALIR", 100, 90);
-		Meowro.getInstance().getBatch().end();
+		BaseGameSingleton.getInstance().getBatch().begin();
+		BaseGameSingleton.getInstance().getFont().setColor(Color.WHITE);
+		BaseGameSingleton.getInstance().getFont().draw(BaseGameSingleton.getInstance().getBatch(), "Fin del juego :(", 100, 150);
+		BaseGameSingleton.getInstance().getFont().draw(BaseGameSingleton.getInstance().getBatch(), "Máxima puntuación: "+ BaseGameSingleton.getInstance().getScore(), 100, 130);
+		BaseGameSingleton.getInstance().getFont().draw(BaseGameSingleton.getInstance().getBatch(), "Si quieres jugar otra partida pulsa la tecla 'espacio'", 100, 110);
+		BaseGameSingleton.getInstance().getFont().draw(BaseGameSingleton.getInstance().getBatch(), "Pulsa 'ESCAPE' para SALIR", 100, 90);
+		BaseGameSingleton.getInstance().getBatch().end();
 		
-		if (InputManager.getInstance().getInputMainMenu() == 4) {
+		if (InputManagerSingleton.getInstance().getInputMainMenu() == 4) {
 			//Meowro.getInstance().setScore(0);
-			Meowro.getInstance().setScreen(new GameScreen());
+			BaseGameSingleton.getInstance().setScreen(new GameScreen());
 		}
-		if (InputManager.getInstance().getInputMainMenu() == 1) {
+		if (InputManagerSingleton.getInstance().getInputMainMenu() == 1) {
 			dispose();
 			System.exit(0);
 		}
@@ -62,7 +60,7 @@ public class GameOverScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		Meowro.getInstance().dispose();
+		BaseGameSingleton.getInstance().dispose();
 	}
 
 }

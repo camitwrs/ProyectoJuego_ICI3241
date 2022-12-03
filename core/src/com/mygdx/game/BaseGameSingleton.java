@@ -6,18 +6,17 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class Meowro extends Game {
+public class BaseGameSingleton extends Game {
 	private SpriteBatch batch; // Area sobre la cual se colocan los "dibujos/sprites". Lienzo.
 	private BitmapFont font; // Texto.
 	private OrthographicCamera camera; //misma camara siempre
 	private ShapeRenderer sr;
 	private int score;
 
-	private static Meowro instance = null;
+	private static BaseGameSingleton instance = null;
 	
 	@Override
-	public void create () { // Inicializar estructuras de datos y cargar todos los assets. 	
-			
+	public void create () { // Inicializar estructuras de datos y cargar todos los assets. 		
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		sr = new ShapeRenderer();
@@ -26,8 +25,7 @@ public class Meowro extends Game {
 
 	@Override
 	public void render () { // Va actualizando el "dibujo". 60 FPS.
-		super.render();
-		
+		super.render();	
 	}
 	
 	@Override
@@ -36,9 +34,9 @@ public class Meowro extends Game {
 	    font.dispose();
 	}
 	
-	public static Meowro getInstance() {
+	public static BaseGameSingleton getInstance() {
 		if (instance == null)
-			instance = new Meowro();
+			instance = new BaseGameSingleton();
 		
 		return instance;
 	}

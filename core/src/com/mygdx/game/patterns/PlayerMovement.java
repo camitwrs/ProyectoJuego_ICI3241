@@ -2,7 +2,7 @@ package com.mygdx.game.patterns;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.characters.Player;
-import com.mygdx.game.managers.InputManager;
+import com.mygdx.game.managers.InputManagerSingleton;
 import com.mygdx.game.util.Constants;
 
 public class PlayerMovement implements MovementStrategy {
@@ -27,13 +27,13 @@ public class PlayerMovement implements MovementStrategy {
 				
 		// Movimiento respecto input
 				
-		if(InputManager.getInstance().isGoingLeft())
+		if(InputManagerSingleton.getInstance().isGoingLeft())
 			p.move(new Vector2(-1 * dt , 0));
-		if(InputManager.getInstance().isGoingRight())
+		if(InputManagerSingleton.getInstance().isGoingRight())
 			p.move(new Vector2(1 * dt , 0));
-		if(InputManager.getInstance().isGoingDown())
+		if(InputManagerSingleton.getInstance().isGoingDown())
 			p.move(new Vector2(0 , -1 * dt));
-		if(InputManager.getInstance().isGoingUp())
+		if(InputManagerSingleton.getInstance().isGoingUp())
 			p.move(new Vector2(0 , 1 * dt));	
 				
 	}

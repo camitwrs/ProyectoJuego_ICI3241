@@ -1,20 +1,15 @@
 package com.mygdx.game.managers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.mygdx.game.Meowro;
+import com.mygdx.game.BaseGameSingleton;
 import com.mygdx.game.GameOverScreen;
-import com.mygdx.game.characters.Attacks;
 import com.mygdx.game.characters.Dog;
 import com.mygdx.game.characters.Enemy;
-import com.mygdx.game.characters.Entity;
 import com.mygdx.game.characters.Furball;
 import com.mygdx.game.characters.Item;
 import com.mygdx.game.characters.Mouse;
@@ -137,17 +132,17 @@ public class ObjectManager {
     public void debugging() {
     	//para revisar el manejo de colisiones en rectangulos
     	if (debug) {
-    		Meowro.getInstance().getSR().begin(ShapeType.Line); 
-    		Meowro.getInstance().getSR().setColor(Color.RED);
-    		Meowro.getInstance().getSR().rect(player.getRect().x, player.getRect().y, player.getRect().height, player.getRect().width);
+    		BaseGameSingleton.getInstance().getSR().begin(ShapeType.Line); 
+    		BaseGameSingleton.getInstance().getSR().setColor(Color.RED);
+    		BaseGameSingleton.getInstance().getSR().rect(player.getRect().x, player.getRect().y, player.getRect().height, player.getRect().width);
     	
     	
 	    	for(Enemy en : enemies) {	
-	    		Meowro.getInstance().getSR().setColor(Color.BLUE);
-	    		Meowro.getInstance().getSR().rect(en.getRect().x, en.getRect().y,
+	    		BaseGameSingleton.getInstance().getSR().setColor(Color.BLUE);
+	    		BaseGameSingleton.getInstance().getSR().rect(en.getRect().x, en.getRect().y,
 						en.getRect().height, en.getRect().width);
 	    	}
-	    	Meowro.getInstance().getSR().end();
+	    	BaseGameSingleton.getInstance().getSR().end();
     	}
     }
     
@@ -155,7 +150,7 @@ public class ObjectManager {
 
 	public void update(float dt) {
 		
-    	Meowro.getInstance().setScore(Meowro.getInstance().getScore() + 1); // Para que el puntaje vaya aumentando.
+    	BaseGameSingleton.getInstance().setScore(BaseGameSingleton.getInstance().getScore() + 1); // Para que el puntaje vaya aumentando.
     	
     	player.update(dt);
     	
@@ -173,7 +168,7 @@ public class ObjectManager {
     		player.checkCollision(en); // Chequea colisión con ese enemigo
     		if(player.getHp() <= 0) {
     			dispose();
-    			Meowro.getInstance().setScreen(new GameOverScreen());
+    			BaseGameSingleton.getInstance().setScreen(new GameOverScreen());
     		}
     	}
     	

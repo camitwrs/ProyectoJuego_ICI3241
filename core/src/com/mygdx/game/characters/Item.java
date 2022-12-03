@@ -13,6 +13,4 @@ public abstract class Item extends Entity {
 		super(position, texture, id);
 	}
 
-
-
 }

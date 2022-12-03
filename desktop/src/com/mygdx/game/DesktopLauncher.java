@@ -11,6 +11,6 @@ public class DesktopLauncher {
 		config.setTitle("Meowro");
 		config.setWindowedMode(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 		config.setResizable(false);
-		new Lwjgl3Application(Meowro.getInstance(), config);
+		new Lwjgl3Application(BaseGameSingleton.getInstance(), config);
 	}
 }
