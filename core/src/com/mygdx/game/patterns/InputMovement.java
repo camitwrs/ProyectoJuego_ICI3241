@@ -5,11 +5,11 @@ import com.mygdx.game.characters.Player;
 import com.mygdx.game.managers.InputManagerSingleton;
 import com.mygdx.game.util.Constants;
 
-public class PlayerMovement implements MovementStrategy {
+public class InputMovement implements MovementStrategy {
 	
 	Player p;
 	
-	public PlayerMovement(Player p) {
+	public InputMovement(Player p) {
 		this.p = p;
 	}
 

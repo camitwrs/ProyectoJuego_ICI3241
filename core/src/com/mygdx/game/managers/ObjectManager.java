@@ -48,7 +48,7 @@ public class ObjectManager {
     	player = new Player(new Vector2(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2),
     			ResourceManagerSingleton.getInstance().getAtlas().findRegion("wolfFront"),200f,1000);
     	
-    	player.setTypeOfMovement(new PlayerMovement(player));
+    	player.setTypeOfMovement(new InputMovement(player));
     }
     
     //posX Random
