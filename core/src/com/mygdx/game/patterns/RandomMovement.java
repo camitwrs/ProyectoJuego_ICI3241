@@ -3,11 +3,11 @@ package com.mygdx.game.patterns;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.characters.Mouse;
 
-public class MouseMovement implements MovementStrategy{
+public class RandomMovement implements MovementStrategy{
 	
 	Mouse m;
 	
-	public MouseMovement(Mouse m) {
+	public RandomMovement(Mouse m) {
 		this.m = m;
 	}
 

@@ -97,7 +97,7 @@ public class ObjectManager {
     			pos = new Vector2(pos.x-10,pos.y-10);
     		}
     		Mouse mouse = new Mouse(pos,  ResourceManagerSingleton.getInstance().getAtlas().findRegion("jiniretFront"),200f,100,x,y);
-    		mouse.setTypeOfMovement(new MouseMovement(mouse));
+    		mouse.setTypeOfMovement(new RandomMovement(mouse));
     		
             enemies.add(mouse);
             lastEnemy = TimeUtils.nanoTime();
@@ -109,7 +109,7 @@ public class ObjectManager {
     		
     		Vector2 pos = new Vector2(getPosDog());
     		Dog dog = new Dog(pos, ResourceManagerSingleton.getInstance().getAtlas().findRegion("wolfFront"),100f,100, player);
-    		dog.setTypeOfMovement(new DogMovement(dog, player));
+    		dog.setTypeOfMovement(new ChaseMovement(dog, player));
     		
             enemies.add(dog);
             lastEnemy = TimeUtils.nanoTime();

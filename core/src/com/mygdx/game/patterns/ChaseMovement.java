@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.characters.Dog;
 import com.mygdx.game.characters.Player;
 
-public class DogMovement implements MovementStrategy {
+public class ChaseMovement implements MovementStrategy {
 
 	Dog dg;
 	Player ply;
 	
-	public DogMovement(Dog d, Player p) {
+	public ChaseMovement(Dog d, Player p) {
 		dg = d;
 		ply = p;
 	}
