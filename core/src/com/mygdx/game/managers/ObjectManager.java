@@ -46,7 +46,7 @@ public class ObjectManager {
     }
     public void generatePlayer() {
     	player = new Player(new Vector2(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2),
-    			ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),200f,1000);
+    			ResourceManagerSingleton.getInstance().getAtlas().findRegion("wolfFront"),200f,1000);
     	
     	player.setTypeOfMovement(new PlayerMovement(player));
     }
@@ -96,7 +96,7 @@ public class ObjectManager {
     				Math.abs(pos.y - player.getPosition().y) >= Constants.PLAYER_WIDTH/2) {
     			pos = new Vector2(pos.x-10,pos.y-10);
     		}
-    		Mouse mouse = new Mouse(pos,  ResourceManager.getInstance().getAtlas().findRegion("jiniretFront"),200f,100,x,y);
+    		Mouse mouse = new Mouse(pos,  ResourceManagerSingleton.getInstance().getAtlas().findRegion("jiniretFront"),200f,100,x,y);
     		mouse.setTypeOfMovement(new MouseMovement(mouse));
     		
             enemies.add(mouse);
@@ -108,7 +108,7 @@ public class ObjectManager {
     	if(enemies.size < 20 ) {
     		
     		Vector2 pos = new Vector2(getPosDog());
-    		Dog dog = new Dog(pos, ResourceManager.getInstance().getAtlas().findRegion("wolfFront"),100f,100, player);
+    		Dog dog = new Dog(pos, ResourceManagerSingleton.getInstance().getAtlas().findRegion("wolfFront"),100f,100, player);
     		dog.setTypeOfMovement(new DogMovement(dog, player));
     		
             enemies.add(dog);
@@ -190,7 +190,7 @@ public class ObjectManager {
     }
     
     public void dispose() {
-    	ResourceManager.getInstance().dispose();
+    	ResourceManagerSingleton.getInstance().dispose();
     	enemies.clear();
     }
     

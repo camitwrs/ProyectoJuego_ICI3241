@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.managers.ObjectManager;
-import com.mygdx.game.managers.ResourceManager;
+import com.mygdx.game.managers.ResourceManagerSingleton;
 import com.mygdx.game.util.Constants;
 
 public class GameScreen implements Screen{
@@ -17,7 +17,7 @@ public class GameScreen implements Screen{
 	
 	public GameScreen() {
 		
-		ResourceManager.getInstance().loadAllResources();
+		ResourceManagerSingleton.getInstance().loadAllResources();
 		
 		obManager = new ObjectManager();
 		

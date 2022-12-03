@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 
-public class ResourceManager {
+public class ResourceManagerSingleton {
 
-	private static ResourceManager instance = null;
+	private static ResourceManagerSingleton instance = null;
 	
     // TextureAtlas con los sprites del game
     private TextureAtlas atlas;
@@ -26,9 +26,9 @@ public class ResourceManager {
         atlas.dispose();
     }
     
-    public static ResourceManager getInstance() {
+    public static ResourceManagerSingleton getInstance() {
 		if (instance == null)
-			instance = new ResourceManager();
+			instance = new ResourceManagerSingleton();
 		
 		return instance;
 	}

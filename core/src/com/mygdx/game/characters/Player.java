@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.BaseGameSingleton;
 import com.mygdx.game.managers.InputManagerSingleton;
-import com.mygdx.game.managers.ResourceManager;
+import com.mygdx.game.managers.ResourceManagerSingleton;
 import com.mygdx.game.util.Collidable;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.ID;
@@ -35,7 +35,7 @@ public class Player extends Character implements Collidable{
 			Vector2 posMouse = new Vector2();
 			posMouse = InputManagerSingleton.getInstance().mouseClicked(getRect());
 			System.out.println("2"+posMouse.toString());
-			fb = new Furball(new Vector2(getRect().x,getRect().y),ResourceManager.getInstance().getAtlas().findRegion("Mi_proyecto_64x64"),1000,posMouse);
+			fb = new Furball(new Vector2(getRect().x,getRect().y),ResourceManagerSingleton.getInstance().getAtlas().findRegion("Mi_proyecto_64x64"),1000,posMouse);
 			ammo-=1;
 			//fb.update(dt); // Se dispara la bala.
 		}
